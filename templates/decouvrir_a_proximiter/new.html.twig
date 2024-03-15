@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DecouvrirAProximiter{% endblock %}
+
+{% block body %}
+    <h1>Create new DecouvrirAProximiter</h1>
+
+    {{ include('decouvrir_a_proximiter/_form.html.twig') }}
+
+    <a href="{{ path('app_decouvrir_a_proximiter_index') }}">back to list</a>
+{% endblock %}

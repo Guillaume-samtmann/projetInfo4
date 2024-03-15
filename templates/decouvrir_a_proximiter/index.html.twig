@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DecouvrirAProximiter index{% endblock %}
+
+{% block body %}
+    <h1>DecouvrirAProximiter index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for decouvrir_a_proximiter in decouvrir_a_proximiters %}
+            <tr>
+                <td>{{ decouvrir_a_proximiter.id }}</td>
+                <td>{{ decouvrir_a_proximiter.nom }}</td>
+                <td>
+                    <a href="{{ path('app_decouvrir_a_proximiter_show', {'id': decouvrir_a_proximiter.id}) }}">show</a>
+                    <a href="{{ path('app_decouvrir_a_proximiter_edit', {'id': decouvrir_a_proximiter.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_decouvrir_a_proximiter_new') }}">Create new</a>
+{% endblock %}

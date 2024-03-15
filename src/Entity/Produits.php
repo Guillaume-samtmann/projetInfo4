@@ -55,10 +55,18 @@ class Produits
     #[ORM\Column(length: 255)]
     private ?string $photo6 = null;
 
+    #[ORM\ManyToMany(targetEntity: DecouvrirSurPlace::class, inversedBy: 'produits')]
+    private Collection $decouvrirSurPlace;
+
+    #[ORM\ManyToMany(targetEntity: DecouvrirAProximiter::class, inversedBy: 'produits')]
+    private Collection $decouvrirAProximiter;
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->motsCles = new ArrayCollection();
+        $this->decouvrirSurPlace = new ArrayCollection();
+        $this->decouvrirAProximiter = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,6 +256,54 @@ class Produits
     public function setPhoto6(string $photo6): static
     {
         $this->photo6 = $photo6;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DecouvrirSurPlace>
+     */
+    public function getDecouvrirSurPlace(): Collection
+    {
+        return $this->decouvrirSurPlace;
+    }
+
+    public function addDecouvrirSurPlace(DecouvrirSurPlace $decouvrirSurPlace): static
+    {
+        if (!$this->decouvrirSurPlace->contains($decouvrirSurPlace)) {
+            $this->decouvrirSurPlace->add($decouvrirSurPlace);
+        }
+
+        return $this;
+    }
+
+    public function removeDecouvrirSurPlace(DecouvrirSurPlace $decouvrirSurPlace): static
+    {
+        $this->decouvrirSurPlace->removeElement($decouvrirSurPlace);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, DecouvrirAProximiter>
+     */
+    public function getDecouvrirAProximiter(): Collection
+    {
+        return $this->decouvrirAProximiter;
+    }
+
+    public function addDecouvrirAProximiter(DecouvrirAProximiter $decouvrirAProximiter): static
+    {
+        if (!$this->decouvrirAProximiter->contains($decouvrirAProximiter)) {
+            $this->decouvrirAProximiter->add($decouvrirAProximiter);
+        }
+
+        return $this;
+    }
+
+    public function removeDecouvrirAProximiter(DecouvrirAProximiter $decouvrirAProximiter): static
+    {
+        $this->decouvrirAProximiter->removeElement($decouvrirAProximiter);
 
         return $this;
     }

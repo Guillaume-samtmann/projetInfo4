@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Produits;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use App\Entity\MotCles;
 
 /**
  * @extends ServiceEntityRepository<Produits>
@@ -45,4 +46,13 @@ class ProduitsRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function findByMotCle($motCle): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.motsCles', 'm')
+            ->andWhere('m.nom = :motCles')
+            ->setParameter('motCles', $motCle)
+            ->getQuery()
+            ->getResult();
+    }
 }

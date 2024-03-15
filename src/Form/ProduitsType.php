@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\DecouvrirAProximiter;
+use App\Entity\DecouvrirSurPlace;
 use App\Entity\MotCles;
 use App\Entity\Produits;
 use App\Entity\Ville;
@@ -31,6 +33,18 @@ class ProduitsType extends AbstractType
             ])
             ->add('motsCles', EntityType::class, [
                 'class' => MotCles::class,
+                'choice_label' => 'nom',
+                'expanded' => true,
+                'multiple' => true
+            ])
+            ->add('decouvrirSurPlace', EntityType::class, [
+                'class' => DecouvrirSurPlace::class,
+                'choice_label' => 'nom',
+                'expanded' => true,
+                'multiple' => true
+            ])
+            ->add('decouvrirAProximiter', EntityType::class, [
+                'class' => DecouvrirAProximiter::class,
                 'choice_label' => 'nom',
                 'expanded' => true,
                 'multiple' => true

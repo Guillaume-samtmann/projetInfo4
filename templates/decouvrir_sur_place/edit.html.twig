@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DecouvrirSurPlace{% endblock %}
+
+{% block body %}
+    <h1>Edit DecouvrirSurPlace</h1>
+
+    {{ include('decouvrir_sur_place/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_decouvrir_sur_place_index') }}">back to list</a>
+
+    {{ include('decouvrir_sur_place/_delete_form.html.twig') }}
+{% endblock %}

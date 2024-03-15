@@ -20,7 +20,12 @@
             <a href="{{ path('produits') }}">Gestion des Produits</a>
             <a href="{{ path('ville') }}">Gestion des Villes</a>
             <a href="{{ path('mot-cles') }}">Gestion des Mots clés</a>
+            <a href="{{ path('decouvrirSurPlace') }}">Gestion des decouverte sur place</a>
+            <a href="{{ path('decouvrirAProximiter') }}">Gestion des decouverte à proximité</a>
         </nav>
+        <div class="nav2">
+            <a href="{{ path('produits_showAll') }}">Séjour & Week-end</a>
+        </div>
     </header>
         {% block body %}{% endblock %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
