@@ -3,11 +3,13 @@
 {% block title %}Edit MotCles{% endblock %}
 
 {% block body %}
-    <h1>Edit MotCles</h1>
+    <main>
+        <h1>Edit MotCles</h1>
 
-    {{ include('mot_cles/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('mot_cles/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_mot_cles_index') }}">back to list</a>
+        <a href="{{ path('app_mot_cles_index') }}">back to list</a>
 
-    {{ include('mot_cles/_delete_form.html.twig') }}
+        {{ include('mot_cles/_delete_form.html.twig') }}
+    </main>
 {% endblock %}

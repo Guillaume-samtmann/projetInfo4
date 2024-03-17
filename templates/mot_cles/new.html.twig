@@ -3,9 +3,11 @@
 {% block title %}New MotCles{% endblock %}
 
 {% block body %}
+    <main>
     <h1>Create new MotCles</h1>
 
     {{ include('mot_cles/_form.html.twig') }}
 
     <a href="{{ path('app_mot_cles_index') }}">back to list</a>
+    </main>
 {% endblock %}

@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}MotCles index{% endblock %}
+{% block title %}Panier index{% endblock %}
 
 {% block body %}
-    <main>
-    <h1>MotCles index</h1>
+    <h1>Panier index</h1>
 
     <table class="table">
         <thead>
@@ -15,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-        {% for mot_cle in mot_cles %}
+        {% for panier in paniers %}
             <tr>
-                <td>{{ mot_cle.id }}</td>
-                <td>{{ mot_cle.nom }}</td>
+                <td>{{ panier.id }}</td>
+                <td>{{ panier.nom }}</td>
                 <td>
-                    <a href="{{ path('app_mot_cles_show', {'id': mot_cle.id}) }}">show</a>
-                    <a href="{{ path('app_mot_cles_edit', {'id': mot_cle.id}) }}">edit</a>
+                    <a href="{{ path('app_panier_show', {'id': panier.id}) }}">show</a>
+                    <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -32,6 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_mot_cles_new') }}">Create new</a>
-    </main>
+    <a href="{{ path('app_panier_new') }}">Create new</a>
 {% endblock %}

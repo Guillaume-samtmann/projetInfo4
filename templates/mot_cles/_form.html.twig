@@ -1,4 +1,7 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{% if mot_cle.image %}
+    <p>Photo actuelle : <img src="{{ asset('uploads/'~mot_cle.image) }}" alt="{{ mot_cle.nom }}"></p>
+{% endif %}
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

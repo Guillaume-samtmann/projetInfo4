@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ProduitsOne{% endblock %}
+
+{% block body %}
+    <main>
+    <section class="oneProduit">
+        <div class="oneProduit-header">
+            <div class="oneProduit-headerLesImg">
+                <img src="{{ produit.photo }}" alt="img-produit">
+                <div class="oneProduit-headerAutreImg">
+                    <img src="{{ produit.photo2 }}" alt="img-produit">
+                    <img src="{{ produit.photo3 }}" alt="img-produit">
+                    <img src="{{ produit.photo4 }}" alt="img-produit">
+                    <img src="{{ produit.photo5 }}" alt="img-produit">
+                    <img src="{{ produit.photo6 }}" alt="img-produit">
+                </div>
+            </div>
+            <div class="oneProduit-description">
+                <h2>{{ produit.nom }}</h2>
+                <div class="oneProduit-descriptionDetail">
+                    <p>
+                        {% if produit.motsCles is not empty %}
+                    <ul>
+                        {% for motCle in produit.motsCles %}
+                            <li>{{ motCle.nom }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    </p>
+                    <p class="oneProduit-descriptionPrix">{{ produit.prix }}€</p>
+                </div>
+                <p>{{ produit.description }}</p>
+
+                <a class="btnPanierLien" href="{{ path('ajouter_au_panier', {'id': produit.id}) }}"><button class="oneProduit-descriptionBtnPanier">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                    </svg>
+                    Ajouter au panier
+                </button></a>
+            </div>
+        </div>
+        <section class="lesInformations">
+            <div class="informations-pratiques">
+                <h3 class="oneProduit-h3">Informations pratiques</h3>
+                <div class="oneProduit-infoPratique">
+                    <div class="oneProduit-infoPratiqueSection">
+                        {% if produit.ville is not null %}
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                                </svg>
+                                adresse
+                            </h4>
+                            <p class="oneProduit-infoPratiqueTxt">Localisation : {{ produit.ville.nom }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="oneProduit-infoPratiqueSection">
+                        {% if produit.decouvrirSurPlace is not empty %}
+                            <h4>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                </svg>
+                                a découvrir
+                            </h4>
+                            <div class="oneProduit-infoPratiqueSectionSurPlace">
+                                <p class="oneProduit-infoPratiqueTxt">Sur place :
+                                {% for aDecouvrirPlace in produit.decouvrirSurPlace %}
+                                    {{ aDecouvrirPlace.nom }},&nbsp;</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                            <div>
+                                {% if produit.decouvrirAProximiter is not empty %}
+                                    <div class="oneProduit-infoPratiqueSectionSurPlace">
+                                        <p class="oneProduit-infoPratiqueTxt">à proximité :
+                                            {% for adecouvrirProximiter in produit.decouvrirAProximiter %}
+                                            {{ adecouvrirProximiter.nom }},&nbsp;</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="informations-complémentaire">
+                <h3 class="oneProduit-h3">Informations complémentaire</h3>
+                <div class="oneProduit-infoPratique">
+                    <div class="oneProduit-infoPratiqueSection">
+                        {% if produit.informationsHorraireArv  is not null %}
+                            {% if produit.informationsHorraireDepart  is not null %}
+                            <p class="oneProduit-infoPratiqueTxt">Arrivée : à partir de {{ produit.informationsHorraireArv.nom }}, départ avant {{ produit.informationsHorraireDepart.nom }}</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="oneProduit-infoPratiqueSection">
+                        {% if produit.informationsAnnimaux  is not null %}
+                            <p class="oneProduit-infoPratiqueTxt">Annimaux : {{ produit.informationsAnnimaux.nom }}</p>
+
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+    </main>
+{% endblock %}

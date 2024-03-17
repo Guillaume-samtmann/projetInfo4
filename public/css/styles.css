@@ -1,23 +1,50 @@
 /*navigation*/
+header {
+    height: 120px;
+    z-index: 99;
+    width: 100%;
+    position: fixed;
+}
 nav {
+    padding: 40px;
     display: flex;
-    background: #0e0e0ee8;
-    height: 50px;
+    background: #0e0e0e;
+    height: 70px;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
 }
 nav a{
     text-decoration: none;
     color: white;
     font-weight: 500;
 }
+.logo {
+    width: 14%;
+}
+.logo img{
+    width: 100%;
+}
+input#site-search {
+    padding-left: 15px;
+    height: 28px;
+    border-radius: 30px;
+    width: 521px;
+}
+.iconNav {
+    color: white;
+}
+
+.iconNav a{
+    padding: 10px;
+}
+
 .nav2 {
     display: flex;
     margin-bottom: 30px;
     box-shadow: 2px 2px 7px rgba(114, 114, 114, 0.8);
-    background-color: #f4f6f833;
+    background-color: #f4f6f8;
     height: 50px;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 .nav2 a{
@@ -30,7 +57,34 @@ nav a{
 .nav2 a:hover{
     font-size: 0.95rem;
 }
-/*affichage des produits sur la home page*/
+/*page d'accueil*/
+main {
+    padding-top: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.baniere_Acc {
+    height: 480px;
+    width: 1280px;
+}
+.baniere_Acc img{
+    width: 100%;
+}
+/*affichage  sur la home page*/
+.lesCategorisProdutis {
+    margin-top: 25px;
+    width: 1280px;
+    display: flex;
+    justify-content: space-around;
+}
+.boxCatégorie {
+    border-radius: 24px;
+    border: 1px solid black;
+    width: 300px;
+}
+
+/*affichage des produits */
 
 .card {
     width: 20rem;
@@ -115,8 +169,16 @@ nav a{
     justify-content: center;
     align-items: center;
 }
+.btnPanierLien {
+    text-decoration: none;
+    color: #f0f8ff00;
+}
 .oneProduit-descriptionBtnPanier svg.bi.bi-cart3 {
     margin-right: 10px;
+}
+
+.lesInformations {
+    display: flex;
 }
 
 .oneProduit-h3{
@@ -136,4 +198,74 @@ nav a{
 
 .oneProduit-infoPratiqueTxt{
     margin-left: 2rem;
+}
+
+.informations-complémentaire {
+    margin-left: 40px;
+}
+.oneProduit-infoPratique {
+    margin-top: 20px;
+}
+
+/*page panier*/
+.lePanierGeneral {
+    display: flex;
+    justify-content: space-evenly;
+}
+.panier {
+    width: 50%;
+    background-color: #f4f4f4;
+}
+section.unProduitPanier {
+    height: 230px;
+}
+.panierEnTete{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.panierEnTete img{
+    width: 22%;
+}
+.panierEnTete-contenu{
+    width: 60%;
+}
+.panierEnTete-contenu h3{
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+.panierEnTete-contenu p{
+    font-size: 1rem;
+}
+.panierSeparation{
+    margin-top: 0px;
+    margin-right: 24px;
+    float: inline-end;
+    width: 66%;
+}
+.panierQuantité {
+    padding-bottom: 30px;
+    display: flex;
+    margin-right: 35px;
+    float: inline-end;
+    width: 60%;
+    align-items: flex-end;
+}
+select#nbt-select {
+    padding-left: 9px;
+    border-radius: 22px;
+    width: 70px;
+    height: 28px;
+    align-items: center;
+}
+.panierPrix{
+    color: #fc3872;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-left: 15px;
+    margin-bottom: 0px;
+}
+.panierRecap {
+    width: 30%;
+    background: #f4f4f4;
 }

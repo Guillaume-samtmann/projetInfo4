@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MotClesRepository;
+use App\Repository\InformationsHorraireArvRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MotClesRepository::class)]
-class MotCles
+#[ORM\Entity(repositoryClass: InformationsHorraireArvRepository::class)]
+class InformationsHorraireArv
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,11 +18,8 @@ class MotCles
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToMany(targetEntity: Produits::class, mappedBy: 'motsCles')]
+    #[ORM\OneToMany(targetEntity: Produits::class, mappedBy: 'informationsHorraireArv')]
     private Collection $produits;
-
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
 
     public function __construct()
     {
@@ -58,7 +55,7 @@ class MotCles
     {
         if (!$this->produits->contains($produit)) {
             $this->produits->add($produit);
-            $produit->addMotsCle($this);
+            $produit->setInformationsHorraireArv($this);
         }
 
         return $this;
@@ -67,20 +64,11 @@ class MotCles
     public function removeProduit(Produits $produit): static
     {
         if ($this->produits->removeElement($produit)) {
-            $produit->removeMotsCle($this);
+            // set the owning side to null (unless already changed)
+            if ($produit->getInformationsHorraireArv() === $this) {
+                $produit->setInformationsHorraireArv(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
 
         return $this;
     }

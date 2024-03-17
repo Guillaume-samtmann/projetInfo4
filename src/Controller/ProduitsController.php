@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/produits')]
+#[Route('produits')]
 class ProduitsController extends AbstractController
 {
     #[Route('/', name: 'app_produits_index', methods: ['GET'])]
@@ -22,7 +22,7 @@ class ProduitsController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_produits_new', methods: ['GET', 'POST'])]
+    #[Route('new', name: 'app_produits_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $produit = new Produits();
@@ -42,7 +42,7 @@ class ProduitsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produits_show', methods: ['GET'])]
+    #[Route('{id}', name: 'app_produits_show', methods: ['GET'])]
     public function show(Produits $produit): Response
     {
         return $this->render('produits/showOne.html.twig', [
@@ -50,7 +50,7 @@ class ProduitsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_produits_edit', methods: ['GET', 'POST'])]
+    #[Route('{id}/edit', name: 'app_produits_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produits $produit, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProduitsType::class, $produit);
@@ -68,7 +68,7 @@ class ProduitsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produits_delete', methods: ['POST'])]
+    #[Route('{id}', name: 'app_produits_delete', methods: ['POST'])]
     public function delete(Request $request, Produits $produit, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->request->get('_token'))) {

@@ -61,12 +61,32 @@ class Produits
     #[ORM\ManyToMany(targetEntity: DecouvrirAProximiter::class, inversedBy: 'produits')]
     private Collection $decouvrirAProximiter;
 
+    #[ORM\ManyToOne(inversedBy: 'produit')]
+    private ?Panier $panier = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?InformationsHorraireArv $informationsHorraireArv = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?InformationsHorraireDeaprt $informationsHorraireDepart = null;
+
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?InformationsAnnimaux $informationsAnnimaux = null;
+
+
+
+
+
+
+
     public function __construct()
     {
         $this->commentaires = new ArrayCollection();
         $this->motsCles = new ArrayCollection();
         $this->decouvrirSurPlace = new ArrayCollection();
         $this->decouvrirAProximiter = new ArrayCollection();
+
+
     }
 
     public function getId(): ?int
@@ -307,4 +327,57 @@ class Produits
 
         return $this;
     }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): static
+    {
+        $this->panier = $panier;
+
+        return $this;
+    }
+
+    public function getInformationsHorraireArv(): ?InformationsHorraireArv
+    {
+        return $this->informationsHorraireArv;
+    }
+
+    public function setInformationsHorraireArv(?InformationsHorraireArv $informationsHorraireArv): static
+    {
+        $this->informationsHorraireArv = $informationsHorraireArv;
+
+        return $this;
+    }
+
+    public function getInformationsHorraireDepart(): ?InformationsHorraireDeaprt
+    {
+        return $this->informationsHorraireDepart;
+    }
+
+    public function setInformationsHorraireDepart(?InformationsHorraireDeaprt $informationsHorraireDepart): static
+    {
+        $this->informationsHorraireDepart = $informationsHorraireDepart;
+
+        return $this;
+    }
+
+    public function getInformationsAnnimaux(): ?InformationsAnnimaux
+    {
+        return $this->informationsAnnimaux;
+    }
+
+    public function setInformationsAnnimaux(?InformationsAnnimaux $informationsAnnimaux): static
+    {
+        $this->informationsAnnimaux = $informationsAnnimaux;
+
+        return $this;
+    }
+
+
+
+
+
 }

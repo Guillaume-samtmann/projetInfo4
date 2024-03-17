@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\DecouvrirAProximiter;
 use App\Entity\DecouvrirSurPlace;
+use App\Entity\InformationsAnnimaux;
+use App\Entity\InformationsHorraireArv;
+use App\Entity\InformationsHorraireDeaprt;
 use App\Entity\MotCles;
 use App\Entity\Produits;
 use App\Entity\Ville;
@@ -11,6 +14,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 
 class ProduitsType extends AbstractType
 {
@@ -49,6 +54,23 @@ class ProduitsType extends AbstractType
                 'expanded' => true,
                 'multiple' => true
             ])
+            ->add('informationsHorraireArv', EntityType::class, [
+                'class' => InformationsHorraireArv::class,
+                'choice_label' => 'nom',
+            ])
+            ->add('informationsHorraireDepart', EntityType::class, [
+                'class' => InformationsHorraireDeaprt::class,
+                'choice_label' => 'nom',
+            ])
+            ->add('informationsAnnimaux', EntityType::class, [
+                'class' => InformationsAnnimaux::class,
+                'choice_label' => 'nom',
+            ])
+
+
+
+
+
         ;
     }
 

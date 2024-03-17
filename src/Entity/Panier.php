@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MotClesRepository;
+use App\Repository\PanierRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: MotClesRepository::class)]
-class MotCles
+#[ORM\Entity(repositoryClass: PanierRepository::class)]
+class Panier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -18,11 +18,11 @@ class MotCles
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\ManyToMany(targetEntity: Produits::class, mappedBy: 'motsCles')]
-    private Collection $produits;
+    #[ORM\ManyToOne(inversedBy: 'paniers')]
+    private ?User $utilisateur = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
+    #[ORM\OneToMany(targetEntity: Produits::class, mappedBy: 'panier')]
+    private Collection $produits;
 
     public function __construct()
     {
@@ -46,10 +46,22 @@ class MotCles
         return $this;
     }
 
+    public function getUtilisateur(): ?User
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?User $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Produits>
      */
-    public function getProduits(): Collection
+    public function getProduit(): Collection
     {
         return $this->produits;
     }
@@ -58,7 +70,7 @@ class MotCles
     {
         if (!$this->produits->contains($produit)) {
             $this->produits->add($produit);
-            $produit->addMotsCle($this);
+            $produit->setPanier($this);
         }
 
         return $this;
@@ -67,20 +79,11 @@ class MotCles
     public function removeProduit(Produits $produit): static
     {
         if ($this->produits->removeElement($produit)) {
-            $produit->removeMotsCle($this);
+            // set the owning side to null (unless already changed)
+            if ($produit->getPanier() === $this) {
+                $produit->setPanier(null);
+            }
         }
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
 
         return $this;
     }
