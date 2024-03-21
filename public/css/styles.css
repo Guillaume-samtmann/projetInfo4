@@ -32,10 +32,20 @@ input#site-search {
 }
 .iconNav {
     color: white;
+    display: flex;
+    align-items: center;
 }
 
 .iconNav a{
     padding: 10px;
+}
+
+.iconNav a:hover{
+    color: #ec346b;
+}
+
+.lienProfil {
+    list-style: none;
 }
 
 .nav2 {
@@ -44,19 +54,88 @@ input#site-search {
     box-shadow: 2px 2px 7px rgba(114, 114, 114, 0.8);
     background-color: #f4f6f8;
     height: 50px;
+    justify-content: center;
+}
+.nav2 ul{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: 1280px;
+    display: flex;
     justify-content: space-around;
     align-items: center;
 }
-.nav2 a{
+.nav2 li{
+    list-style: none;
+}
+.nav2 li a{
     font-size: 1rem;
     text-decoration: none;
     color: black;
     font-weight: 500;
-    transition: ease-in-out all .2s;
+    transition: ease-in-out all .1s;
 }
-.nav2 a:hover{
-    font-size: 0.95rem;
+.nav2 li a:hover{
+    color: #ec346b;
 }
+
+.lineUn:hover .sub-menu,
+.sub-menu:hover {
+    display: block;
+}
+
+.sub-menu {
+    padding: 21px;
+    display: none;
+    left: 107px;
+    background: #f4f6f8;
+    height: 254px;
+    width: 264px;
+    position: absolute;
+    z-index: 99;
+    bottom: -250px;
+}
+.btnSubmenu {
+    border-radius: 20px;
+    height: 40px;
+    width: 220px;
+    margin-bottom: 15px;
+    margin-top: 0px;
+    background: white;
+}
+
+.sub-menuLink {
+    height: 65% !important;
+    display: flex !important;
+    flex-direction: column;
+    align-items: flex-start !important;
+    justify-content: center !important;
+}
+
+.sub-menuLink li{
+    padding: 10px;
+}
+
+.lienProfil:hover .sub-menuProfil{
+    display: block;
+}
+
+.sub-menuProfil {
+    display: none;
+    right: 56px;
+    background: #f4f6f8;
+    height: 39px;
+    width: 194px;
+    position: absolute;
+    z-index: 100;
+    bottom: 22px;
+    text-align: center;
+}
+.sub-menuProfil a{
+    color: black;
+}
+
+
 /*page d'accueil*/
 main {
     padding-top: 160px;
@@ -72,19 +151,121 @@ main {
     width: 100%;
 }
 /*affichage  sur la home page*/
+.titreAcc{
+    margin-bottom: 0px;
+    margin-top: 25px;
+    width: 1280px;
+}
 .lesCategorisProdutis {
     margin-top: 25px;
     width: 1280px;
     display: flex;
     justify-content: space-around;
+    margin-bottom: 25px;
+}
+.carousel {
+    display: flex;
+    position: relative;
+    justify-content: center;
+}
+.carousel-inner {
+    position: relative;
+    width: 1280px !important;
+    overflow: hidden;
+}
+.carousel-item {
+    z-index: 0;
+    opacity: 00;
+    position: absolute;
+    display: flex !important; /* Utilisation de flex pour que les éléments s'affichent en ligne */
+    justify-content: space-around !important; /* Espacement équitable des éléments horizontalement */
+    float: none; /* Suppression du flottement */
+    width: 100%;
+    margin-right: -100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transition: transform .6s ease-in-out, opacity .6s ease-in-out;
+}
+.carousel-item.active {
+    z-index: 90;
+    opacity: 100;
+    display: flex !important;
+    justify-content: space-around !important;
+}
+.carousel-control-next, .carousel-control-prev {
+    width: 3% !important;
+
+}
+button.carousel-control-prev {
+    z-index: 100;
+}
+button.carousel-control-next {
+    z-index: 100;
+}
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='black'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e") !important;
+}
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='black'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
 }
 .boxCatégorie {
+    text-decoration: none;
+    color: black;
     border-radius: 24px;
     border: 1px solid black;
     width: 300px;
+    transition: ease-in-out all .2s;
+}
+.boxCatégorie:hover {
+    box-shadow: 2px 2px 7px rgba(114, 114, 114, 0.8);
+}
+.enTeteBoxCat {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
 }
 
-/*affichage des produits */
+.enTeteBoxCat img{
+    width: 193px;
+    height: 241px;
+}
+
+.boxCatégorie h3{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+}
+.bi-chevron-right{
+    margin-top: 10px;
+    margin-right: 15px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    border: 1px solid black;
+    float: right;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+}
+
+.btnAccCatégorie {
+    font-weight: 700;
+    font-size: 1rem;
+    border: none;
+    color: white;
+    background-color: #ec346b;
+    border-radius: 53px;
+    height: 46px;
+    width: 370px;
+    margin-bottom: 25px;
+    transition: ease-in-out all .1s;
+}
+
+.btnAccCatégorie:hover{
+    background-color: #c42c58;
+}
+
+
+    /*affichage des produits */
 
 .card {
     width: 20rem;
@@ -207,6 +388,46 @@ main {
     margin-top: 20px;
 }
 
+.filtreProduit {
+    display: flex;
+    border-bottom: 1px solid;
+    border-top: 1px solid black;
+    height: 50px;
+    width: 1280px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.categoriesFiltre{
+    cursor: pointer;
+    border-right: 1px solid;
+    padding-left: 5px;
+    padding-right: 55px;
+}
+
+.linkCategorie {
+    left: -140px;
+    border: 1px solid;
+    border-radius: 25px;
+    z-index: 9;
+    position: relative;
+    top: 88px;
+    display: none;
+    height: 153px;
+    width: 163px;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+svg#closeWindowCat {
+    cursor: pointer;
+    color: red;
+    margin-top: -23px;
+    margin-left: 120px;
+}
+
 /*page panier*/
 .lePanierGeneral {
     display: flex;
@@ -268,4 +489,21 @@ select#nbt-select {
 .panierRecap {
     width: 30%;
     background: #f4f4f4;
+}
+
+
+/*Footer*/
+footer {
+    display: flex;
+    background: #000000e0;
+    color: white;
+    flex-direction: column;
+    align-items: center;
+}
+.lienFooter {
+    margin-top: 20px;
+    width: 1280px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
 }

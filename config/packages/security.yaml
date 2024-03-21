@@ -36,6 +36,7 @@ security:
     access_control:
         - { path: '^/produits/', roles: ROLE_ADMIN }
         - { path: '^/ville/', roles: ROLE_ADMIN }
+        - { path: '^/lepanier', roles: ROLE_USER}
         - { path: '^/mot/cles/', roles: ROLE_ADMIN }
         - { path: '^/decouvrir/sur/place/', roles: ROLE_ADMIN }
         - { path: '^/decouvrir/a/proximiter/', roles: ROLE_ADMIN }
