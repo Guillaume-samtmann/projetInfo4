@@ -36,7 +36,7 @@ class DecouvrirAProximiterController extends AbstractController
             return $this->redirectToRoute('app_decouvrir_a_proximiter_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('decouvrir_a_proximiter/new.html.twig', [
+        return $this->render('decouvrir_a_proximiter/newCommentaire.html.twig', [
             'decouvrir_a_proximiter' => $decouvrirAProximiter,
             'form' => $form,
         ]);

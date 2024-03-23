@@ -53,6 +53,7 @@
                                 adresse
                             </h4>
                             <p class="oneProduit-infoPratiqueTxt">Localisation : {{ produit.ville.nom }}</p>
+                            <p class="oneProduit-infoPratiqueTxt">Region : {{ produit.region.nom }}</p>
                         {% endif %}
                     </div>
                     <div class="oneProduit-infoPratiqueSection">
@@ -102,6 +103,39 @@
                 </div>
             </div>
         </section>
+        <section>
+            <hr>
+            <h3>Lire les avis</h3>
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_commentaire_new', {'id': produit.id}) }}">Create new</a>
+            {% endif %}
+            {% if commentaires is not empty %}
+                <ul>
+                    {% for commentaire in commentaires %}
+                        <li>{{ commentaire.content }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucun commentaire disponible pour ce produit.</p>
+            {% endif %}
+        </section>
     </section>
     </main>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            let categoriesFiltre = document.querySelector(".categoriesFiltre");
+            let linkCategorie = document.querySelector(".linkCategorie");
+            let closeWindowCat = document.querySelector("#closeWindowCat");
+
+            categoriesFiltre.addEventListener("click", function () {
+                linkCategorie.style.display = "flex";
+            });
+
+            closeWindowCat.addEventListener("click", function () {
+                linkCategorie.style.display = "none";
+            });
+        });
+    </script>
 {% endblock %}

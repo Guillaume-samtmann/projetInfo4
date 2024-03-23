@@ -52,7 +52,7 @@ class MotClesController extends AbstractController
             return $this->redirectToRoute('app_mot_cles_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('mot_cles/new.html.twig', [
+        return $this->render('mot_cles/newCommentaire.html.twig', [
             'mot_cle' => $motCle,
             'form' => $form,
         ]);

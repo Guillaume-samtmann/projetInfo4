@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\Panier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,9 +60,13 @@ class index extends AbstractController
 
     #[Route('/produit/{id}', name: 'produits_showOne', requirements: ['id' => '\d+'])]
     public function produits(Produits $produits): Response {
+        $commentaire = $produits->getCommentaires();
         return $this->render('showOne.html.twig', [
             'produits' => $produits,
-            'produit' => $produits
+            'produit' => $produits,
+            'commentaire' =>$commentaire,
+            'commentaires' =>$commentaire,
+
         ]);
     }
 
@@ -69,6 +74,15 @@ class index extends AbstractController
     public function filtre($motCle, ProduitsRepository $produitRepository): Response {
         // Récupérer les produits associés au mot-clé donné
         $produitsFiltre = $produitRepository->findByMotCle($motCle);
+
+        return $this->render('showFilter.html.twig', [
+            'produits' => $produitsFiltre,
+        ]);
+    }
+    #[Route('/produit_filtreRegion/{region}', name: 'produit_filtreRegion')]
+    public function filtreregion($region, ProduitsRepository $produitRepository): Response {
+        // Récupérer les produits associés au mot-clé donné
+        $produitsFiltre = $produitRepository->findByRegion($region);
 
         return $this->render('showFilter.html.twig', [
             'produits' => $produitsFiltre,

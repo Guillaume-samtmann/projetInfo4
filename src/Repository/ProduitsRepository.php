@@ -6,6 +6,7 @@ use App\Entity\Produits;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\MotCles;
+use App\Entity\Region;
 
 /**
  * @extends ServiceEntityRepository<Produits>
@@ -55,4 +56,14 @@ class ProduitsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+    public function findByRegion($region): array
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.region', 'r')  // Join avec la relation de la région
+            ->andWhere('r.nom = :region_nom') // Comparaison avec le nom de la région
+            ->setParameter('region_nom', $region)
+            ->getQuery()
+            ->getResult();
+    }
+
 }

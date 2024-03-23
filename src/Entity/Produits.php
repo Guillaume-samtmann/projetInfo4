@@ -73,6 +73,9 @@ class Produits
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?InformationsAnnimaux $informationsAnnimaux = null;
 
+    #[ORM\ManyToOne(inversedBy: 'produits')]
+    private ?Region $region = null;
+
 
 
 
@@ -372,6 +375,18 @@ class Produits
     public function setInformationsAnnimaux(?InformationsAnnimaux $informationsAnnimaux): static
     {
         $this->informationsAnnimaux = $informationsAnnimaux;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): static
+    {
+        $this->region = $region;
 
         return $this;
     }

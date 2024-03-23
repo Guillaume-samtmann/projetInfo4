@@ -36,7 +36,7 @@ class DecouvrirSurPlaceController extends AbstractController
             return $this->redirectToRoute('app_decouvrir_sur_place_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('decouvrir_sur_place/new.html.twig', [
+        return $this->render('decouvrir_sur_place/newCommentaire.html.twig', [
             'decouvrir_sur_place' => $decouvrirSurPlace,
             'form' => $form,
         ]);

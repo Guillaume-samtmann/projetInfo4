@@ -10,6 +10,7 @@ use App\Entity\InformationsHorraireDeaprt;
 use App\Entity\MotCles;
 use App\Entity\Produits;
 use App\Entity\Ville;
+use App\Entity\Region;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,6 +35,10 @@ class ProduitsType extends AbstractType
             ->add('nbr_nuit')
             ->add('ville', EntityType::class, [
                 'class' => Ville::class,
+                'choice_label' => 'nom',
+            ])
+            ->add('region', EntityType::class, [
+                'class' => Region::class,
                 'choice_label' => 'nom',
             ])
             ->add('motsCles', EntityType::class, [
