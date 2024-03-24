@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\MotClesRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,8 +26,9 @@ class UserController extends AbstractController
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    Public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    Public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, MotClesRepository $repository): Response
     {
+        $motcles = $repository->findAll();
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -47,9 +49,11 @@ class UserController extends AbstractController
 
         if ($this->isGranted('ROLE_ADMIN')) {
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+
         } else {
             
             return $this->redirectToRoute('app_login');
+
         }
 
         }
@@ -57,6 +61,7 @@ class UserController extends AbstractController
         return $this->render('user/new.html.twig', [
             'user' => $user,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 

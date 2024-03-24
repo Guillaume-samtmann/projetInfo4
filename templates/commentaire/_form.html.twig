@@ -1,5 +1,6 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <p>Produit : {{ produit.nom }}</p>
+    <p>Utilisateur : {{ user.nom }}</p>
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

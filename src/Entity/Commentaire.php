@@ -29,6 +29,8 @@ class Commentaire
     #[ORM\OneToMany(targetEntity: User::class, mappedBy: 'commentaire')]
     private Collection $users;
 
+
+
     #[ORM\ManyToOne(inversedBy: 'commentaires')]
     private ?User $commentaireUser = null;
 

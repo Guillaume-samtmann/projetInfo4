@@ -12,6 +12,7 @@ use App\Repository\ProduitsRepository;
 use App\Entity\MotCles;
 use App\Repository\MotClesRepository;
 use App\Repository\PanierRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
 class index extends AbstractController
@@ -31,9 +32,11 @@ class index extends AbstractController
         ]);
     }
     #[Route('/autreLien/', name: 'autreLien')]
-    public function autreLien(): Response
+    public function autreLien(MotClesRepository $repository): Response
     {
+        $motcles = $repository->findAll();
         return $this->render('error404.html.twig', [
+            'mot_cles' => $motcles,
 
         ]);
     }
@@ -43,49 +46,86 @@ class index extends AbstractController
     public function index(MotClesRepository $repository): Response
     {
         $motcles = $repository->findAll();
+
         return $this->render('home.html.twig', [
             'titre' => 'Bienvenue sur ma page d\'accueil ',
+            'mot_cles' => $motcles,
+
+        ]);
+    }
+    #[Route('/', name: 'base')]
+    public function base(MotClesRepository $repository): Response
+    {
+        $motcles = $repository->findAll();
+
+        return $this->render('base.html.twig', [
             'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/produit', name: 'produits_showAll')]
-    public function produitsAll(ProduitsRepository $repository): Response {
+    public function produitsAll(ProduitsRepository $repository, MotClesRepository $motClesRepository): Response {
         $produits = $repository->findAll();
+
+        $motcles = $motClesRepository->findAll();
 
         return $this->render('showAll.html.twig', [
             'produits' => $produits,
+            'mot_cles' => $motcles,
         ]);
+    }
+
+    private $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
     }
 
     #[Route('/produit/{id}', name: 'produits_showOne', requirements: ['id' => '\d+'])]
-    public function produits(Produits $produits): Response {
-        $commentaire = $produits->getCommentaires();
-        return $this->render('showOne.html.twig', [
-            'produits' => $produits,
-            'produit' => $produits,
-            'commentaire' =>$commentaire,
-            'commentaires' =>$commentaire,
+    public function produits(Produits $produits, MotClesRepository $motClesRepository): Response {
+        $commentaires = $produits->getCommentaires();
+        $motcles = $motClesRepository->findAll();
 
+        // Vous pouvez maintenant parcourir les commentaires et obtenir l'utilisateur associé
+        $commentairesAvecUtilisateur = [];
+        foreach ($commentaires as $commentaire) {
+            $commentaireUser = $commentaire->getCommentaireUser();
+            if ($commentaireUser) {
+                $utilisateur = $this->userRepository->find($commentaireUser->getId());
+                $commentaire->setCommentaireUser($utilisateur);
+            } else {
+                $commentaire->setCommentaireUser(null);
+            }
+            $commentairesAvecUtilisateur[] = $commentaire;
+        }
+
+        return $this->render('showOne.html.twig', [
+            'produit' => $produits,
+            'commentaires' => $commentairesAvecUtilisateur,
+            'mot_cles' => $motcles,
         ]);
     }
-
     #[Route('/produitfiltre/{motCle}', name: 'produit_filtre')]
-    public function filtre($motCle, ProduitsRepository $produitRepository): Response {
+    public function filtre($motCle, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository): Response {
         // Récupérer les produits associés au mot-clé donné
         $produitsFiltre = $produitRepository->findByMotCle($motCle);
+        $motcles = $motClesRepository->findAll();
 
         return $this->render('showFilter.html.twig', [
             'produits' => $produitsFiltre,
+            'mot_cles' => $motcles,
         ]);
     }
     #[Route('/produit_filtreRegion/{region}', name: 'produit_filtreRegion')]
-    public function filtreregion($region, ProduitsRepository $produitRepository): Response {
+    public function filtreregion($region, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository): Response {
         // Récupérer les produits associés au mot-clé donné
         $produitsFiltre = $produitRepository->findByRegion($region);
+        $motcles = $motClesRepository->findAll();
 
         return $this->render('showFilter.html.twig', [
             'produits' => $produitsFiltre,
+            'mot_cles' => $motcles,
         ]);
     }
 

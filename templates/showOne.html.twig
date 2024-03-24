@@ -105,16 +105,29 @@
         </section>
         <section>
             <hr>
-            <h3>Lire les avis</h3>
+            <h3>Commentaires client</h3>
             {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('app_commentaire_new', {'id': produit.id}) }}">Create new</a>
+                <a href="{{ path('app_commentaire_new', {'produitId': produit.id, 'userId': app.user.id}) }}">Create new</a>
             {% endif %}
             {% if commentaires is not empty %}
-                <ul>
                     {% for commentaire in commentaires %}
-                        <li>{{ commentaire.content }}</li>
+                        <div class="commentaire">
+                            <div class="userCommentaire">
+                                {% if commentaire.commentaireUser %}
+                                    <p>Par {{ commentaire.commentaireUser.nom }}</p>
+                                {% else %}
+                                    <p>Utilisateur introuvable</p>
+                                {% endif %}
+                            </div>
+                            <div class="contenuCommentaire">
+                                <p class="commentaireTitre">{{ commentaire.titre }}</p>
+                                <p class="commentaireParagraphe">{{ commentaire.content }}</p>
+                            </div>
+
+                        </div>
+                        <hr class="fincommentaire">
+
                     {% endfor %}
-                </ul>
             {% else %}
                 <p>Aucun commentaire disponible pour ce produit.</p>
             {% endif %}

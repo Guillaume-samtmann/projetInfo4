@@ -85,12 +85,12 @@ input#site-search {
 }
 
 .sub-menu {
+    width: 50%;
     padding: 21px;
     display: none;
     left: 107px;
     background: #f4f6f8;
     height: 254px;
-    width: 264px;
     position: absolute;
     z-index: 99;
     bottom: -250px;
@@ -104,6 +104,8 @@ input#site-search {
     background: white;
 }
 
+
+
 .sub-menuLink {
     height: 65% !important;
     display: flex !important;
@@ -115,7 +117,12 @@ input#site-search {
 .sub-menuLink li{
     padding: 10px;
 }
-
+.subMenu-Destination {
+    display: flex;
+}
+.subMenu-Destination li{
+    padding-left: 10px;
+}
 .lienProfil:hover .sub-menuProfil{
     display: block;
 }
@@ -458,6 +465,33 @@ svg#closeWindowCatRegion {
     margin-left: 209px;
 }
 
+/*section commentaire*/
+.commentaire {
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.userCommentaire {
+    color: #0000006e;
+    padding-right: 90px;
+}
+.contenuCommentaire {
+    border-left: 1px solid;
+    padding-left: 20px;
+}
+.commentaireTitre {
+    font-weight: 700;
+    margin-bottom: 0rem;
+}
+.commentaireParagraphe {
+    width: 800px;
+}
+.fincommentaire{
+    margin-top: 30px;
+    width: 1050px;
+}
+
 /*page panier*/
 .lePanierGeneral {
     display: flex;
@@ -522,14 +556,18 @@ select#nbt-select {
 }
 
 /*formulaire de connection*/
+.mainFormulaireLogin{
+    padding-top: 127px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .pageFormulaireLogin {
-    position: relative;
-    top: -30px;
     display: flex;
     justify-content: center;
-    height: 100vh;
+    height: 71vh;
     width: 100%;
-    background: url("../img/fond_longin.jpg");
+    background: url(../img/fond_longin.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -548,8 +586,39 @@ select#nbt-select {
     flex-direction: row-reverse;
 }
 
+.titreFormLoginActive {
+    border-bottom: 3px solid;
+    color: #fe3873;
+}
+
+.titreFormLoginInscription {
+    text-decoration: none;
+    color: black;
+}
+
+.paragrapheFormulaire {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.titreParagrapheForm {
+    font-size: 1.40rem;
+    font-weight: 100;
+}
+.titreParagrapheForm-gras {
+    font-weight: 700;
+}
 .contenuForm {
-    padding: 50px;
+    padding: 20px;
+}
+.formulaireLoginBtn {
+    margin-top: 50px;
+    width: 100%;
+    height: 40px;
+    background: #fe3873;
+    border: none;
+    border-radius: 25px;
+    color: white;
 }
 
 

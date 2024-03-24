@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\User;
 use App\Entity\Produits;
+use App\Repository\ProduitsRepository;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,11 +26,24 @@ class CommentaireController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/{id}/commentaire/new', name: 'app_commentaire_new', requirements: ['id' => '\d+'])]
-    public function new(Request $request, Produits  $produit, EntityManagerInterface $entityManager): Response
+    #[Route('/produit/{produitId}/user/{userId}/commentaire/new', name: 'app_commentaire_new', requirements: ['id' => '\d+'])]
+    public function new(Request $request, $produitId, $userId, EntityManagerInterface $entityManager, ProduitsRepository $produitsRepository, UserRepository $userRepository): Response
     {
+        $produit = $produitsRepository->find($produitId);
+
+        if (!$produit) {
+            throw $this->createNotFoundException('Le produit n\'existe pas.');
+        }
+
+        $user = $userRepository->find($userId);
+
+        if (!$user) {
+            throw $this->createNotFoundException('Le user n\'existe pas.');
+        }
+
         $commentaire = new Commentaire();
-        $commentaire->setProduit($produit); // Assigner le produit actuel au commentaire
+        $commentaire->setProduit($produit);// Assigner le produit actuel au commentaire
+        $commentaire->setCommentaireUser($user);
 
         $form = $this->createFormBuilder($commentaire)
             ->add('titre')
@@ -47,6 +63,7 @@ class CommentaireController extends AbstractController
             'form' => $form->createView(),
             'commentaire' => $commentaire,
             'produit' => $produit,
+            'user' => $user,
         ]);
     }
 
@@ -86,6 +103,18 @@ class CommentaireController extends AbstractController
         }
 
         return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function showCommentaires(Produit $produit, UserRepository $userRepository)
+    {
+        // Récupérer les commentaires pour ce produit
+        $commentaires = $produit->getCommentaires();
+
+        // Passer le repository de l'entité User à la vue Twig
+        return $this->render('commentaires/show.html.twig', [
+            'commentaires' => $commentaires,
+            'userRepository' => $userRepository,
+        ]);
     }
 
 
