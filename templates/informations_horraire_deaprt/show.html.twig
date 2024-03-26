@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InformationsHorraireDeaprt{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>InformationsHorraireDeaprt</h1>
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ informations_horraire_deaprt.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ informations_horraire_deaprt.nom }}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_informations_horraire_deaprt_index') }}">back to list</a>
+
+        <a href="{{ path('app_informations_horraire_deaprt_edit', {'id': informations_horraire_deaprt.id}) }}">edit</a>
+
+        {{ include('informations_horraire_deaprt/_delete_form.html.twig') }}
+    </main>
+{% endblock %}

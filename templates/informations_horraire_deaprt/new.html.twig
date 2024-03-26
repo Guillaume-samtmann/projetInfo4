@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New InformationsHorraireDeaprt{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Create new InformationsHorraireDeaprt</h1>
+
+        {{ include('informations_horraire_deaprt/_form.html.twig') }}
+
+        <a href="{{ path('app_informations_horraire_deaprt_index') }}">back to list</a>
+    </main>
+{% endblock %}

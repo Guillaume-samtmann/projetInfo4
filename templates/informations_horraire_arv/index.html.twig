@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}InformationsHorraireArv index{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>InformationsHorraireArv index</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for informations_horraire_arv in informations_horraire_arvs %}
+                <tr>
+                    <td>{{ informations_horraire_arv.id }}</td>
+                    <td>{{ informations_horraire_arv.nom }}</td>
+                    <td>
+                        <a href="{{ path('app_informations_horraire_arv_show', {'id': informations_horraire_arv.id}) }}">show</a>
+                        <a href="{{ path('app_informations_horraire_arv_edit', {'id': informations_horraire_arv.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_informations_horraire_arv_new') }}">Create new</a>
+    </main>
+{% endblock %}

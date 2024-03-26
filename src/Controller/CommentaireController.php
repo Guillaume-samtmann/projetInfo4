@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Entity\User;
 use App\Entity\Produits;
+use App\Repository\MotClesRepository;
 use App\Repository\ProduitsRepository;
 use App\Form\CommentaireType;
 use App\Repository\CommentaireRepository;
@@ -27,7 +28,7 @@ class CommentaireController extends AbstractController
     }
 
     #[Route('/produit/{produitId}/user/{userId}/commentaire/new', name: 'app_commentaire_new', requirements: ['id' => '\d+'])]
-    public function new(Request $request, $produitId, $userId, EntityManagerInterface $entityManager, ProduitsRepository $produitsRepository, UserRepository $userRepository): Response
+    public function new(Request $request, $produitId, $userId, EntityManagerInterface $entityManager, ProduitsRepository $produitsRepository, UserRepository $userRepository, MotClesRepository $motClesRepository): Response
     {
         $produit = $produitsRepository->find($produitId);
 
@@ -44,6 +45,7 @@ class CommentaireController extends AbstractController
         $commentaire = new Commentaire();
         $commentaire->setProduit($produit);// Assigner le produit actuel au commentaire
         $commentaire->setCommentaireUser($user);
+        $motcles = $motClesRepository->findAll();
 
         $form = $this->createFormBuilder($commentaire)
             ->add('titre')
@@ -64,6 +66,7 @@ class CommentaireController extends AbstractController
             'commentaire' => $commentaire,
             'produit' => $produit,
             'user' => $user,
+            'mot_cles' => $motcles,
         ]);
     }
 

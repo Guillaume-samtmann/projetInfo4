@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New InformationsAnnimaux{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Create new InformationsAnnimaux</h1>
+
+        {{ include('informations_annimaux/_form.html.twig') }}
+
+        <a href="{{ path('app_informations_annimaux_index') }}">back to list</a>
+    </main>
+{% endblock %}

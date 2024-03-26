@@ -3,10 +3,11 @@
 {% block title %}DecouvrirAProximiter{% endblock %}
 
 {% block body %}
-    <h1>DecouvrirAProximiter</h1>
+    <main>
+        <h1>DecouvrirAProximiter</h1>
 
-    <table class="table">
-        <tbody>
+        <table class="table">
+            <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ decouvrir_a_proximiter.id }}</td>
@@ -15,12 +16,13 @@
                 <th>Nom</th>
                 <td>{{ decouvrir_a_proximiter.nom }}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <a href="{{ path('app_decouvrir_a_proximiter_index') }}">back to list</a>
+        <a href="{{ path('app_decouvrir_a_proximiter_index') }}">back to list</a>
 
-    <a href="{{ path('app_decouvrir_a_proximiter_edit', {'id': decouvrir_a_proximiter.id}) }}">edit</a>
+        <a href="{{ path('app_decouvrir_a_proximiter_edit', {'id': decouvrir_a_proximiter.id}) }}">edit</a>
 
-    {{ include('decouvrir_a_proximiter/_delete_form.html.twig') }}
+        {{ include('decouvrir_a_proximiter/_delete_form.html.twig') }}
+    </main>
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ville;
 use App\Form\VilleType;
+use App\Repository\MotClesRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,19 +16,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class VilleController extends AbstractController
 {
     #[Route('/', name: 'app_ville_index', methods: ['GET'])]
-    public function index(VilleRepository $villeRepository): Response
+    public function index(VilleRepository $villeRepository, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('ville/index.html.twig', [
             'villes' => $villeRepository->findAll(),
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/new', name: 'app_ville_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
         $ville = new Ville();
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
+        $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($ville);
@@ -36,25 +40,29 @@ class VilleController extends AbstractController
             return $this->redirectToRoute('app_ville_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('ville/newCommentaire.html.twig', [
+        return $this->render('ville/new.html.twig', [
             'ville' => $ville,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/{id}', name: 'app_ville_show', methods: ['GET'])]
-    public function show(Ville $ville): Response
+    public function show(Ville $ville, MotClesRepository $motClesRepository): Response
     {
-        return $this->render('ville/showOne.html.twig', [
+        $motcles = $motClesRepository->findAll();
+        return $this->render('ville/show.html.twig', [
             'ville' => $ville,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_ville_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Ville $ville, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Ville $ville, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
+        $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -65,6 +73,7 @@ class VilleController extends AbstractController
         return $this->render('ville/edit.html.twig', [
             'ville' => $ville,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 

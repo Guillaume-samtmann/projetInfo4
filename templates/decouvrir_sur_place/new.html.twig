@@ -3,9 +3,12 @@
 {% block title %}New DecouvrirSurPlace{% endblock %}
 
 {% block body %}
-    <h1>Create new DecouvrirSurPlace</h1>
+    <main>
+        <h1>Create new DecouvrirSurPlace</h1>
 
-    {{ include('decouvrir_sur_place/_form.html.twig') }}
+        {{ include('decouvrir_sur_place/_form.html.twig') }}
 
-    <a href="{{ path('app_decouvrir_sur_place_index') }}">back to list</a>
+        <a href="{{ path('app_decouvrir_sur_place_index') }}">back to list</a>
+
+    </main>
 {% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main>
+        <strong class="afficheUser"> {{ app.user.email }}</strong>
+        <section class="lienAccessAdmin">
+            <div class="listLienAdmin">
+                <a href="{{ path('produits') }}">Gestion des produits</a>
+                <a href="{{ path('ville') }}">Gestion des villes</a>
+                <a href="{{ path('mot-cles') }}">Gestion des catégories</a>
+            </div>
+            <div class="listLienAdmin">
+                <a href="{{ path('decouvrirSurPlace') }}">Gestion des choses a découvrir sur place</a>
+                <a href="{{ path('decouvrirAProximiter') }}">Gestion des choses a decouvrir à proximiter</a>
+                <a href="{{ path('region') }}">Gestion des regions</a>
+            </div>
+            <div class="listLienAdmin">
+                <a href="{{ path('infoAnnimaux') }}">Gestion des annimaux</a>
+                <a href="{{ path('infoHorrairesArv') }}">Gestion des horraires d'arriver</a>
+                <a href="{{ path('infoHorrairesDepart') }}">Gestion des horraires de depart</a>
+            </div>
+            <div class="listLienAdmin">
+                <a href="{{ path('infoUser') }}">Gestion des utilisateurs</a>
+
+            </div>
+        </section>
+
+    </main>
+{% endblock %}
+
+

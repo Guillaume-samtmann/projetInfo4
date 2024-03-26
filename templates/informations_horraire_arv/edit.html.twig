@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit InformationsHorraireArv{% endblock %}
+
+{% block body %}
+    <main>
+        <h1>Edit InformationsHorraireArv</h1>
+
+        {{ include('informations_horraire_arv/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('app_informations_horraire_arv_index') }}">back to list</a>
+
+        {{ include('informations_horraire_arv/_delete_form.html.twig') }}
+    </main>
+{% endblock %}

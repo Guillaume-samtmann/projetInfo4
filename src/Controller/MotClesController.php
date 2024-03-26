@@ -61,7 +61,7 @@ class MotClesController extends AbstractController
     #[Route('/{id}', name: 'app_mot_cles_show', methods: ['GET'])]
     public function show(MotCles $motCle): Response
     {
-        return $this->render('mot_cles/showOne.html.twig', [
+        return $this->render('mot_cles/show.html.twig', [
             'mot_cle' => $motCle,
         ]);
     }

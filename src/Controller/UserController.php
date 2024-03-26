@@ -12,26 +12,36 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+
 
 
 #[Route('/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(UserRepository $userRepository, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
-    Public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, MotClesRepository $repository): Response
+    Public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, MotClesRepository $repository, CsrfTokenManagerInterface $csrfTokenManager): Response
     {
-        $motcles = $repository->findAll();
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
+        $motcles = $repository->findAll();
+        // Récupérer le jeton CSRF de la requête
+        $csrfToken = $request->request->get('_csrf_token');
+        if (!$this->isCsrfTokenValid('user_registration', $csrfToken)) {
+
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
             // récupère le mot de passe saisi
@@ -66,15 +76,17 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(User $user, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('user/show.html.twig', [
             'user' => $user,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, MotClesRepository $repository): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -84,10 +96,12 @@ class UserController extends AbstractController
 
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
+        $motcles = $repository->findAll();
 
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\DecouvrirSurPlace;
 use App\Form\DecouvrirSurPlaceType;
 use App\Repository\DecouvrirSurPlaceRepository;
+use App\Repository\MotClesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,19 +16,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class DecouvrirSurPlaceController extends AbstractController
 {
     #[Route('/', name: 'app_decouvrir_sur_place_index', methods: ['GET'])]
-    public function index(DecouvrirSurPlaceRepository $decouvrirSurPlaceRepository): Response
+    public function index(DecouvrirSurPlaceRepository $decouvrirSurPlaceRepository, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('decouvrir_sur_place/index.html.twig', [
             'decouvrir_sur_places' => $decouvrirSurPlaceRepository->findAll(),
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/new', name: 'app_decouvrir_sur_place_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
         $decouvrirSurPlace = new DecouvrirSurPlace();
         $form = $this->createForm(DecouvrirSurPlaceType::class, $decouvrirSurPlace);
         $form->handleRequest($request);
+        $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($decouvrirSurPlace);
@@ -36,25 +40,29 @@ class DecouvrirSurPlaceController extends AbstractController
             return $this->redirectToRoute('app_decouvrir_sur_place_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('decouvrir_sur_place/newCommentaire.html.twig', [
+        return $this->render('decouvrir_sur_place/new.html.twig', [
             'decouvrir_sur_place' => $decouvrirSurPlace,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/{id}', name: 'app_decouvrir_sur_place_show', methods: ['GET'])]
-    public function show(DecouvrirSurPlace $decouvrirSurPlace): Response
+    public function show(DecouvrirSurPlace $decouvrirSurPlace, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('decouvrir_sur_place/show.html.twig', [
             'decouvrir_sur_place' => $decouvrirSurPlace,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_decouvrir_sur_place_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, DecouvrirSurPlace $decouvrirSurPlace, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, DecouvrirSurPlace $decouvrirSurPlace, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
         $form = $this->createForm(DecouvrirSurPlaceType::class, $decouvrirSurPlace);
         $form->handleRequest($request);
+        $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -65,6 +73,7 @@ class DecouvrirSurPlaceController extends AbstractController
         return $this->render('decouvrir_sur_place/edit.html.twig', [
             'decouvrir_sur_place' => $decouvrirSurPlace,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 

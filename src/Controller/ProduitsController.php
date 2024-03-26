@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Produits;
 use App\Form\ProduitsType;
+use App\Repository\MotClesRepository;
 use App\Repository\ProduitsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,19 +16,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class ProduitsController extends AbstractController
 {
     #[Route('/', name: 'app_produits_index', methods: ['GET'])]
-    public function index(ProduitsRepository $produitsRepository): Response
+    public function index(ProduitsRepository $produitsRepository, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('produits/index.html.twig', [
             'produits' => $produitsRepository->findAll(),
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('new', name: 'app_produits_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
         $produit = new Produits();
         $form = $this->createForm(ProduitsType::class, $produit);
         $form->handleRequest($request);
+        $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($produit);
@@ -36,25 +40,29 @@ class ProduitsController extends AbstractController
             return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('produits/newCommentaire.html.twig', [
+        return $this->render('produits/new.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('{id}', name: 'app_produits_show', methods: ['GET'])]
-    public function show(Produits $produit): Response
+    public function show(Produits $produit, MotClesRepository $motClesRepository): Response
     {
-        return $this->render('produits/showOne.html.twig', [
+        $motcles = $motClesRepository->findAll();
+        return $this->render('produits/show.html.twig', [
             'produit' => $produit,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('{id}/edit', name: 'app_produits_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produits $produit, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Produits $produit, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
         $form = $this->createForm(ProduitsType::class, $produit);
         $form->handleRequest($request);
+        $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
@@ -65,6 +73,7 @@ class ProduitsController extends AbstractController
         return $this->render('produits/edit.html.twig', [
             'produit' => $produit,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 

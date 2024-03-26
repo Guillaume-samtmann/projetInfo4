@@ -1,4 +1,32 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<section class="pageFormulaireRegister">
+    {{ form_start(form, {'attr': {'class': 'formulaireLogin'}}) }}
+    <div class="titreFormLogin">
+        <a class="titreFormLoginInscription" href="{{ path('app_login') }}"><h2>Connexion</h2></a>
+        <h2 class="titreFormLoginActive">Inscription</h2>
+    </div>
+    <div class="paragrapheFormulaire">
+        <h3 class="titreParagrapheForm">Nouveau <span class="titreParagrapheForm-gras">client ?</span></h3>
+        <p>Créez votre compte pour enregistrer vos cadeaux, suivre facilement vos commandes et créer votre liste de produits favoris !</p>
+        <h4 class="sousTitreParagrapheForm">Inscrivez-vous avec votre adresse email</h4>
+    </div>
+    <div class="contenuForm">
+        <div id="user">
+            <div class="champsInscription">
+                {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'required'}}) }}
+                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="champsInscription">
+                {{ form_label(form.email, 'Email', {'label_attr': {'class': 'required'}}) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+            </div>
+            <div class="champsInscription">
+                {{ form_label(form.password, 'Password', {'label_attr': {'class': 'required'}}) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        {{ form_row(form._token) }}
+        <button class="formulaireLoginBtn">{{ button_label|default('S\'inscrire') }}</button>
+    </div>
+    {{ form_end(form) }}
+</section>
+

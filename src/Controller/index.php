@@ -3,7 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Commentaire;
+use App\Entity\DecouvrirSurPlace;
 use App\Entity\Panier;
+use App\Repository\DecouvrirAProximiterRepository;
+use App\Repository\InformationsHorraireArvRepository;
+use App\Repository\InformationsHorraireDeaprtRepository;
+use App\Repository\VilleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,17 +17,119 @@ use App\Repository\ProduitsRepository;
 use App\Entity\MotCles;
 use App\Repository\MotClesRepository;
 use App\Repository\PanierRepository;
+use App\Repository\DecouvrirSurPlaceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\RegionRepository;
+use App\Repository\InformationsAnnimauxRepository;
 
 class index extends AbstractController
 {
 
-    #[Route('/ville/', name: 'ville')]
-    #[Route('/mot/cles/', name: 'mot-cles')]
-    #[Route('/decouvrir/sur/place/', name: 'decouvrirSurPlace')]
-    #[Route('/decouvrir/a/proximiter/', name: 'decouvrirAProximiter')]
-    #[Route('/produits/', name: 'produits')]
+    #[Route('/administrateur/ville/', name: 'ville')]
+    public function gestionVille(MotClesRepository $motClesRepository, VilleRepository $villeRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('ville/index.html.twig', [
+            'villes' => $villeRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+    #[Route('/administrateur/mot/cles/', name: 'mot-cles')]
+    public function gestionMotscles(MotClesRepository $motClesRepository)
+    {
+
+        return $this->render('mot_cles/index.html.twig', [
+            'mot_cles' => $motClesRepository ->findAll(),
+        ]);
+    }
+    #[Route('/administrateur/decouvrir/sur/place/', name: 'decouvrirSurPlace')]
+    public function gestionDecouveteSurPlace(MotClesRepository $motClesRepository, DecouvrirSurPlaceRepository $decouvrirSurPlace)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('decouvrir_sur_place/index.html.twig', [
+            'decouvrir_sur_places' => $decouvrirSurPlace->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+    #[Route('/administrateur/decouvrir/a/proximiter/', name: 'decouvrirAProximiter')]
+    public function gestionDecouveteProximiter(MotClesRepository $motClesRepository, DecouvrirAProximiterRepository $decouvrirAProximiterRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('decouvrir_a_proximiter/index.html.twig', [
+            'decouvrir_a_proximiters' => $decouvrirAProximiterRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/produits/', name: 'produits')]
+    public function gestionProduits(MotClesRepository $motClesRepository, ProduitsRepository $produitsRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('produits/index.html.twig', [
+            'produits' => $produitsRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/region/', name: 'region')]
+    public function gestionRegion(MotClesRepository $motClesRepository, RegionRepository $regionRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('region/index.html.twig', [
+            'regions' => $regionRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/informations/annimaux/', name: 'infoAnnimaux')]
+    public function gestionDesAnnimaux(MotClesRepository $motClesRepository, InformationsAnnimauxRepository $informationsAnnimauxRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('informations_annimaux/index.html.twig', [
+            'informations_annimauxes' => $informationsAnnimauxRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/user/', name: 'infoUser')]
+    public function gestionDesUser(MotClesRepository $motClesRepository, UserRepository $userRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('user/index.html.twig', [
+            'users' => $userRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/informations/horraire/arv/', name: 'infoHorrairesArv')]
+    public function gestionDesHorraireArv(MotClesRepository $motClesRepository, InformationsHorraireArvRepository $informationsHorraireArvRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('informations_horraire_arv/index.html.twig', [
+            'informations_horraire_arvs' => $informationsHorraireArvRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/informations/horraire/deaprt/', name: 'infoHorrairesDepart')]
+    public function gestionDesHorraireDepart(MotClesRepository $motClesRepository, InformationsHorraireDeaprtRepository $informationsHorraireDeaprtRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('informations_horraire_deaprt/index.html.twig', [
+            'informations_horraire_deaprts' => $informationsHorraireDeaprtRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
 
     #[Route('/likes/', name: 'likes')]
     public function likes(): Response
@@ -64,14 +171,17 @@ class index extends AbstractController
     }
 
     #[Route('/produit', name: 'produits_showAll')]
-    public function produitsAll(ProduitsRepository $repository, MotClesRepository $motClesRepository): Response {
+    public function produitsAll(ProduitsRepository $repository, MotClesRepository $motClesRepository, RegionRepository $regionRepository ): Response {
         $produits = $repository->findAll();
 
         $motcles = $motClesRepository->findAll();
 
+        $region = $regionRepository->findAll();
+
         return $this->render('showAll.html.twig', [
             'produits' => $produits,
             'mot_cles' => $motcles,
+            'regions' => $region,
         ]);
     }
 
@@ -107,14 +217,16 @@ class index extends AbstractController
         ]);
     }
     #[Route('/produitfiltre/{motCle}', name: 'produit_filtre')]
-    public function filtre($motCle, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository): Response {
+    public function filtre($motCle, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository, RegionRepository $regionRepository): Response {
         // Récupérer les produits associés au mot-clé donné
         $produitsFiltre = $produitRepository->findByMotCle($motCle);
         $motcles = $motClesRepository->findAll();
+        $region = $regionRepository->findAll();
 
         return $this->render('showFilter.html.twig', [
             'produits' => $produitsFiltre,
             'mot_cles' => $motcles,
+            'regions' => $region,
         ]);
     }
     #[Route('/produit_filtreRegion/{region}', name: 'produit_filtreRegion')]
@@ -130,21 +242,24 @@ class index extends AbstractController
     }
 
     #[Route('/lepanier', name: 'panier')]
-    public function afficherPanier(PanierRepository $panierRepository): Response
+    public function afficherPanier(PanierRepository $panierRepository, MotClesRepository $motClesRepository): Response
     {
         $utilisateur = $this->getUser();
         $paniers = $panierRepository->findByWithProduits(['user' => $utilisateur]);
+        $motcles = $motClesRepository->findAll();
 
         // Passer les paniers chargés à la vue Twig pour les afficher
         return $this->render('panier.html.twig', [
             'paniers' => $paniers,
+            'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/lepanier/delete/{id}', name: 'panierDelete')]
-    public function supprimerElementDuPanier(int $id, EntityManagerInterface $entityManager): Response
+    public function supprimerElementDuPanier(int $id, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
         $elementDuPanier = $entityManager->getRepository(Panier::class)->find($id);
+        $motcles = $motClesRepository->findAll();
 
         if (!$elementDuPanier) {
             throw $this->createNotFoundException('Élément du panier non trouvé');
@@ -152,6 +267,19 @@ class index extends AbstractController
 
         $entityManager->remove($elementDuPanier);
         $entityManager->flush();
-        return $this->redirectToRoute('panier');
+        return $this->render('home.html.twig', [
+
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur', name: 'administrateur')]
+    public function administrateur(MotClesRepository $repository): Response
+    {
+        $motcles = $repository->findAll();
+        return $this->render('administrateur.html.twig', [
+            'mot_cles' => $motcles,
+
+        ]);
     }
 }

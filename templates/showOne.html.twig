@@ -21,7 +21,7 @@
                 <div class="oneProduit-descriptionDetail">
                     <p>
                         {% if produit.motsCles is not empty %}
-                    <ul>
+                    <ul class="afficheMotsCles">
                         {% for motCle in produit.motsCles %}
                             <li>{{ motCle.nom }}</li>
                         {% endfor %}
@@ -107,7 +107,7 @@
             <hr>
             <h3>Commentaires client</h3>
             {% if is_granted('ROLE_USER') %}
-                <a href="{{ path('app_commentaire_new', {'produitId': produit.id, 'userId': app.user.id}) }}">Create new</a>
+                <a class="createComm" href="{{ path('app_commentaire_new', {'produitId': produit.id, 'userId': app.user.id}) }}">Ajouter un commentaire</a>
             {% endif %}
             {% if commentaires is not empty %}
                     {% for commentaire in commentaires %}
