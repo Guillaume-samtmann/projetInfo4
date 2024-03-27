@@ -20,10 +20,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class CommentaireController extends AbstractController
 {
     #[Route('/', name: 'app_commentaire_index', methods: ['GET'])]
-    public function index(CommentaireRepository $commentaireRepository): Response
+    public function index(CommentaireRepository $commentaireRepository, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('commentaire/index.html.twig', [
             'commentaires' => $commentaireRepository->findAll(),
+            'mot_cles' => $motcles,
         ]);
     }
 
@@ -72,10 +74,12 @@ class CommentaireController extends AbstractController
 
 
     #[Route('/{id}', name: 'app_commentaire_show', methods: ['GET'])]
-    public function show(Commentaire $commentaire): Response
+    public function show(Commentaire $commentaire, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('commentaire/show.html.twig', [
             'commentaire' => $commentaire,
+            'mot_cles' => $motcles,
         ]);
     }
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Panier;
 use App\Entity\Produits;
 use App\Form\PanierType;
+use App\Repository\MotClesRepository;
 use App\Repository\PanierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +17,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class PanierController extends AbstractController
 {
     #[Route('/', name: 'app_panier_index', methods: ['GET'])]
-    public function index(PanierRepository $panierRepository): Response
+    public function index(PanierRepository $panierRepository,MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         return $this->render('panier/index.html.twig', [
             'paniers' => $panierRepository->findAll(),
+            'mot_cles' => $motcles,
         ]);
     }
 
@@ -44,10 +47,15 @@ class PanierController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_panier_show', methods: ['GET'])]
-    public function show(Panier $panier): Response
+    public function show($id, MotClesRepository $motClesRepository, PanierRepository $panierRepository): Response
     {
+        $panier = $panierRepository->find($id);
+        $produitsDuPanier = $panier->getProduit();
+        $motcles = $motClesRepository->findAll();
+
         return $this->render('panier/show.html.twig', [
-            'panier' => $panier,
+            'paniers' => $produitsDuPanier,
+            'mot_cles' => $motcles,
         ]);
     }
 

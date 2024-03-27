@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Entity\DecouvrirSurPlace;
 use App\Entity\Panier;
+use App\Repository\CommentaireRepository;
 use App\Repository\DecouvrirAProximiterRepository;
 use App\Repository\InformationsHorraireArvRepository;
 use App\Repository\InformationsHorraireDeaprtRepository;
@@ -105,6 +106,28 @@ class index extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/commentaire/', name: 'infoCommentaire')]
+    public function gestionDesCommentaires(MotClesRepository $motClesRepository, CommentaireRepository $commentaireRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('commentaire/index.html.twig', [
+            'commentaires' => $commentaireRepository->findAll(),
+            'mot_cles' => $motcles,
+        ]);
+    }
+
+    #[Route('/administrateur/panier/', name: 'infoPanier')]
+    public function gestionDesPanier(MotClesRepository $motClesRepository, PanierRepository $panierRepository)
+    {
+        $motcles = $motClesRepository->findAll();
+
+        return $this->render('panier/index.html.twig', [
+            'paniers' => $panierRepository->findAll(),
             'mot_cles' => $motcles,
         ]);
     }
