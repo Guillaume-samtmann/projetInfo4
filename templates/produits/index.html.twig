@@ -24,7 +24,7 @@
                     <td>{{ produit.id }}</td>
                     <td>{{ produit.nom }}</td>
                     <td>{{ produit.description }}</td>
-                    <td> <img width="425px" height="250px" src="{{ produit.photo }}"></td>
+                    <td> <img width="425px" height="250px" src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}"></td>
                     <td>{{ produit.prix }}€</td>
                     <td>
                         <a href="{{ path('app_produits_show', {'id': produit.id}) }}">show</a>

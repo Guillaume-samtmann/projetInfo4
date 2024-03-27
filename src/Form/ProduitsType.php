@@ -16,6 +16,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 
 class ProduitsType extends AbstractType
@@ -25,12 +27,78 @@ class ProduitsType extends AbstractType
         $builder
             ->add('nom')
             ->add('description')
-            ->add('photo')
-            ->add('photo2')
-            ->add('photo3')
-            ->add('photo4')
-            ->add('photo5')
-            ->add('photo6')
+            ->add('photo', FileType::class, [
+                'label' => 'PhotoPrincipale',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200k',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Sélectionnez un fichier JPEG ou PNG de poids inférieur à 200Ko',
+                    ])
+                ]
+            ])
+            ->add('photo2', FileType::class, [
+                'label' => 'Photo2',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200k',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Sélectionnez un fichier JPEG ou PNG de poids inférieur à 200Ko',
+                    ])
+                ]
+            ])
+            ->add('photo3', FileType::class, [
+                'label' => 'Photo3',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200k',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Sélectionnez un fichier JPEG ou PNG de poids inférieur à 200Ko',
+                    ])
+                ]
+            ])
+            ->add('photo4', FileType::class, [
+                'label' => 'Photo4',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200k',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Sélectionnez un fichier JPEG ou PNG de poids inférieur à 200Ko',
+                    ])
+                ]
+            ])
+            ->add('photo5', FileType::class, [
+                'label' => 'Photo5',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200k',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Sélectionnez un fichier JPEG ou PNG de poids inférieur à 200Ko',
+                    ])
+                ]
+            ])
+            ->add('photo6', FileType::class, [
+                'label' => 'Photo6',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '200k',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Sélectionnez un fichier JPEG ou PNG de poids inférieur à 200Ko',
+                    ])
+                ]
+            ])
             ->add('prix')
             ->add('nbr_nuit')
             ->add('ville', EntityType::class, [

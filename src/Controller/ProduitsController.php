@@ -34,6 +34,24 @@ class ProduitsController extends AbstractController
         $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('photo')->getData();
+            if ($image) {
+                $produit->setPhoto("tmp"); // il faut un nom de fichier temporaire (not null)
+                $entityManager->persist($produit);
+                $entityManager->flush();
+                $filename = 'image-'.$produit->getId().'.'.$image->guessExtension();
+                $produit->setPhoto($filename);
+                $image->move('uploads', $filename);
+            }
+            $image2 = $form->get('photo2')->getData();
+            if ($image2) {
+                $produit->setPhoto2("tmp"); // il faut un nom de fichier temporaire (not null)
+                $entityManager->persist($produit);
+                $entityManager->flush();
+                $filename = 'image-'.$produit->getId().'.'.$image2->guessExtension();
+                $produit->setPhoto2($filename);
+                $image2->move('uploads', $filename);
+            }
             $entityManager->persist($produit);
             $entityManager->flush();
 
@@ -65,6 +83,24 @@ class ProduitsController extends AbstractController
         $motcles = $motClesRepository->findAll();
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $image = $form->get('photo')->getData();
+            if ($image) {
+                if (file_exists('uploads/' . $produit->getPhoto()))
+                    unlink('uploads/' . $produit->getPhoto());
+
+                $filename = 'photodepresentation-'.$produit->getId().'.'.$image->guessExtension();
+                $produit->setPhoto($filename);
+                $image->move('uploads', $filename);
+            }
+            $image2 = $form->get('photo2')->getData();
+            if ($image2) {
+                if (file_exists('uploads/' . $produit->getPhoto2()))
+                    unlink('uploads/' . $produit->getPhoto2());
+
+                $filename = 'photodepresentation2-'.$produit->getId().'.'.$image2->guessExtension();
+                $produit->setPhoto2($filename);
+                $image2->move('uploads', $filename);
+            }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_produits_index', [], Response::HTTP_SEE_OTHER);
