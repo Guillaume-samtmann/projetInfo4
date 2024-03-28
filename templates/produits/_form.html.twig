@@ -1,6 +1,6 @@
 
 {{ form_start(form) }}
-    <div class="contenuForm">
+    <div class="contenuFormUpdate">
         <div id="user">
             <div class="champsInscription">
                 {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'required'}}) }}
@@ -53,54 +53,58 @@
                         <p>Photo actuelle : <img class="LaphotoProduit" src="{{ asset('uploads/'~produit.photo6) }}" alt="{{ produit.photo6}}"></p>
                     {% endif %}
                 </div>
-
+            </section>
+            <section class="formProduitInfoPlus">
+                <div class="champsInscriptionAutre">
+                    {{ form_label(form.prix, 'Prix', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionAutre">
+                    {{ form_label(form.nbr_nuit, 'Nbr_nuit', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.nbr_nuit, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionAutre">
+                    {{ form_label(form.ville, 'Ville', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionAutre">
+                    {{ form_label(form.region, 'Region', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionAutre">
+                    {{ form_label(form.informationsHorraireArv, 'InformationsHorraireArv', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.informationsHorraireArv, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionAutre">
+                    {{ form_label(form.informationsAnnimaux, 'InformationsAnnimaux', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.informationsAnnimaux, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionAutre">
+                    {{ form_label(form.informationsHorraireDepart, 'InformationsHorraireDepart', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.informationsHorraireDepart, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </section>
+            <section class="formProduitInfoPlusList">
+                <div class="champsInscriptionList">
+                    {{ form_label(form.motsCles, 'MotsCles', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.motsCles, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionList">
+                    {{ form_label(form.decouvrirSurPlace, 'DecouvrirSurPlace', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.decouvrirSurPlace, {'attr': {'class': 'form-control'}}) }}
+                </div>
+                <div class="champsInscriptionList">
+                    {{ form_label(form.decouvrirAProximiter, 'DecouvrirAProximiter', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.decouvrirAProximiter, {'attr': {'class': 'form-control'}}) }}
+                </div>
             </section>
 
-            <div class="champsInscription">
-                {{ form_label(form.prix, 'Prix', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.nbr_nuit, 'Nbr_nuit', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.nbr_nuit, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.ville, 'Ville', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.ville, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.region, 'Region', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.region, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.motsCles, 'MotsCles', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.motsCles, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.decouvrirSurPlace, 'DecouvrirSurPlace', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.decouvrirSurPlace, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.decouvrirAProximiter, 'DecouvrirAProximiter', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.decouvrirAProximiter, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.informationsHorraireArv, 'InformationsHorraireArv', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.informationsHorraireArv, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.informationsHorraireDepart, 'InformationsHorraireDepart', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.informationsHorraireDepart, {'attr': {'class': 'form-control'}}) }}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.informationsAnnimaux, 'InformationsAnnimaux', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.informationsAnnimaux, {'attr': {'class': 'form-control'}}) }}
-            </div>
+
 
 
         </div>
         {{ form_row(form._token) }}
-
+        <button class="formulaireUpdateBtn">{{ button_label|default('Save') }}</button>
     </div>
-    <button class="formulaireLoginBtn">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

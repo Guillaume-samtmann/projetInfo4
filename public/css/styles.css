@@ -721,6 +721,12 @@ footer {
 }
 
 /*formulaire edition produit*/
+.contenuFormUpdate {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .formProduitImg {
     margin-top: 20px;
     display: flex;
@@ -739,4 +745,57 @@ footer {
 .LaphotoProduit {
     margin-top: 10px;
     width: 13rem;
+}
+.formProduitInfoPlus {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.champsInscriptionAutre{
+    width: 29%;
+}
+.formProduitInfoPlusList {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.champsInscriptionList {
+    width: 45%;
+}
+#produits_motsCles {
+    display: flex;
+    flex-direction: column;
+}
+#produits_motsCles input{
+    top: 21px;
+    z-index: 2;
+    position: relative;
+}
+#produits_decouvrirSurPlace {
+    display: flex;
+    flex-direction: column;
+}
+#produits_decouvrirSurPlace input{
+    top: 21px;
+    z-index: 2;
+    position: relative;
+}
+#produits_decouvrirAProximiter {
+    display: flex;
+    flex-direction: column;
+}
+#produits_decouvrirAProximiter input{
+    top: 21px;
+    z-index: 2;
+    position: relative;
+    margin-left: 200px;
+}
+.formulaireUpdateBtn {
+    margin-top: 50px;
+    width: 50%;
+    height: 40px;
+    background: #fe3873;
+    border: none;
+    border-radius: 25px;
+    color: white;
 }
