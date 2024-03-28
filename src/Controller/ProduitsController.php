@@ -39,7 +39,7 @@ class ProduitsController extends AbstractController
                 $produit->setPhoto("tmp"); // il faut un nom de fichier temporaire (not null)
                 $entityManager->persist($produit);
                 $entityManager->flush();
-                $filename = 'image-'.$produit->getId().'.'.$image->guessExtension();
+                $filename = 'photodepresentation-'.$produit->getId().'.'.$image->guessExtension();
                 $produit->setPhoto($filename);
                 $image->move('uploads', $filename);
             }
@@ -48,9 +48,45 @@ class ProduitsController extends AbstractController
                 $produit->setPhoto2("tmp"); // il faut un nom de fichier temporaire (not null)
                 $entityManager->persist($produit);
                 $entityManager->flush();
-                $filename = 'image-'.$produit->getId().'.'.$image2->guessExtension();
+                $filename = 'photodepresentation2-'.$produit->getId().'.'.$image2->guessExtension();
                 $produit->setPhoto2($filename);
                 $image2->move('uploads', $filename);
+            }
+            $image3 = $form->get('photo3')->getData();
+            if ($image3) {
+                $produit->setPhoto3("tmp"); // il faut un nom de fichier temporaire (not null)
+                $entityManager->persist($produit);
+                $entityManager->flush();
+                $filename = 'photodepresentation3-'.$produit->getId().'.'.$image3->guessExtension();
+                $produit->setPhoto3($filename);
+                $image3->move('uploads', $filename);
+            }
+            $image4 = $form->get('photo4')->getData();
+            if ($image4) {
+                $produit->setPhoto4("tmp"); // il faut un nom de fichier temporaire (not null)
+                $entityManager->persist($produit);
+                $entityManager->flush();
+                $filename = 'photodepresentation4-'.$produit->getId().'.'.$image4->guessExtension();
+                $produit->setPhoto4($filename);
+                $image4->move('uploads', $filename);
+            }
+            $image5 = $form->get('photo5')->getData();
+            if ($image5) {
+                $produit->setPhoto5("tmp"); // il faut un nom de fichier temporaire (not null)
+                $entityManager->persist($produit);
+                $entityManager->flush();
+                $filename = 'photodepresentation5-'.$produit->getId().'.'.$image5->guessExtension();
+                $produit->setPhoto5($filename);
+                $image5->move('uploads', $filename);
+            }
+            $image6 = $form->get('photo6')->getData();
+            if ($image6) {
+                $produit->setPhoto6("tmp"); // il faut un nom de fichier temporaire (not null)
+                $entityManager->persist($produit);
+                $entityManager->flush();
+                $filename = 'photodepresentation6-'.$produit->getId().'.'.$image6->guessExtension();
+                $produit->setPhoto6($filename);
+                $image6->move('uploads', $filename);
             }
             $entityManager->persist($produit);
             $entityManager->flush();
@@ -100,6 +136,42 @@ class ProduitsController extends AbstractController
                 $filename = 'photodepresentation2-'.$produit->getId().'.'.$image2->guessExtension();
                 $produit->setPhoto2($filename);
                 $image2->move('uploads', $filename);
+            }
+            $image3 = $form->get('photo3')->getData();
+            if ($image3) {
+                if (file_exists('uploads/' . $produit->getPhoto3()))
+                    unlink('uploads/' . $produit->getPhoto3());
+
+                $filename = 'photodepresentation3-'.$produit->getId().'.'.$image3->guessExtension();
+                $produit->setPhoto3($filename);
+                $image3->move('uploads', $filename);
+            }
+            $image4 = $form->get('photo4')->getData();
+            if ($image4) {
+                if (file_exists('uploads/' . $produit->getPhoto4()))
+                    unlink('uploads/' . $produit->getPhoto4());
+
+                $filename = 'photodepresentation4-'.$produit->getId().'.'.$image4->guessExtension();
+                $produit->setPhoto4($filename);
+                $image4->move('uploads', $filename);
+            }
+            $image5 = $form->get('photo5')->getData();
+            if ($image5) {
+                if (file_exists('uploads/' . $produit->getPhoto5()))
+                    unlink('uploads/' . $produit->getPhoto5());
+
+                $filename = 'photodepresentation5-'.$produit->getId().'.'.$image5->guessExtension();
+                $produit->setPhoto5($filename);
+                $image5->move('uploads', $filename);
+            }
+            $image6 = $form->get('photo6')->getData();
+            if ($image6) {
+                if (file_exists('uploads/' . $produit->getPhoto6()))
+                    unlink('uploads/' . $produit->getPhoto6());
+
+                $filename = 'photodepresentation6-'.$produit->getId().'.'.$image6->guessExtension();
+                $produit->setPhoto6($filename);
+                $image6->move('uploads', $filename);
             }
             $entityManager->flush();
 

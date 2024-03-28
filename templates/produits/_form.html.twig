@@ -10,48 +10,52 @@
                 {{ form_label(form.description, 'Description', {'label_attr': {'class': 'required'}}) }}
                 {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
             </div>
-            <div class="champsInscription">
-                {{ form_label(form.photo, 'Photo', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
-                {% if produit.photo %}
-                    <p>Photo actuelle : <img src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.photo }}"></p>
-                {% endif %}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.photo2, 'Photo2', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.photo2, {'attr': {'class': 'form-control'}}) }}
-                {% if produit.photo2 %}
-                    <p>Photo actuelle : <img src="{{ asset('uploads/'~produit.photo2) }}" alt="{{ produit.photo2 }}"></p>
-                {% endif %}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.photo3, 'Photo3', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.photo3, {'attr': {'class': 'form-control'}}) }}
-                {% if produit.photo3 %}
-                    <p>Photo actuelle : <img src="{{ asset('uploads/'~produit.photo3) }}" alt="{{ produit.photo3}}"></p>
-                {% endif %}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.photo4, 'Photo4', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.photo4, {'attr': {'class': 'form-control'}}) }}
-                {% if produit.photo4 %}
-                    <p>Photo actuelle : <img src="{{ asset('uploads/'~produit.photo4) }}" alt="{{ produit.photo4}}"></p>
-                {% endif %}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.photo5, 'Photo5', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.photo5, {'attr': {'class': 'form-control'}}) }}
-                {% if produit.photo5 %}
-                    <p>Photo actuelle : <img src="{{ asset('uploads/'~produit.photo5) }}" alt="{{ produit.photo5}}"></p>
-                {% endif %}
-            </div>
-            <div class="champsInscription">
-                {{ form_label(form.photo6, 'Photo6', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.photo6, {'attr': {'class': 'form-control'}}) }}
-                {% if produit.photo6 %}
-                    <p>Photo actuelle : <img src="{{ asset('uploads/'~produit.photo6) }}" alt="{{ produit.photo6}}"></p>
-                {% endif %}
-            </div>
+            <section class="formProduitImg">
+                <div class="champsPhotoProduit">
+                    {{ form_label(form.photo, 'Photo', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.photo, {'attr': {'class': 'form-control'}}) }}
+                    {% if produit.photo %}
+                        <p>Photo actuelle : <img class="LaphotoProduit" src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.photo }}"></p>
+                    {% endif %}
+                </div>
+                <div class="champsPhotoProduit">
+                    {{ form_label(form.photo2, 'Photo2', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.photo2, {'attr': {'class': 'form-control'}}) }}
+                    {% if produit.photo2 %}
+                        <p>Photo actuelle : <img class="LaphotoProduit" src="{{ asset('uploads/'~produit.photo2) }}" alt="{{ produit.photo2 }}"></p>
+                    {% endif %}
+                </div>
+                <div class="champsPhotoProduit">
+                    {{ form_label(form.photo3, 'Photo3', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.photo3, {'attr': {'class': 'form-control'}}) }}
+                    {% if produit.photo3 %}
+                        <p>Photo actuelle : <img class="LaphotoProduit" src="{{ asset('uploads/'~produit.photo3) }}" alt="{{ produit.photo3}}"></p>
+                    {% endif %}
+                </div>
+                <div class="champsPhotoProduit">
+                    {{ form_label(form.photo4, 'Photo4', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.photo4, {'attr': {'class': 'form-control'}}) }}
+                    {% if produit.photo4 %}
+                        <p>Photo actuelle : <img class="LaphotoProduit" src="{{ asset('uploads/'~produit.photo4) }}" alt="{{ produit.photo4}}"></p>
+                    {% endif %}
+                </div>
+                <div class="champsPhotoProduit">
+                    {{ form_label(form.photo5, 'Photo5', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.photo5, {'attr': {'class': 'form-control'}}) }}
+                    {% if produit.photo5 %}
+                        <p>Photo actuelle : <img class="LaphotoProduit" src="{{ asset('uploads/'~produit.photo5) }}" alt="{{ produit.photo5}}"></p>
+                    {% endif %}
+                </div>
+                <div class="champsPhotoProduit">
+                    {{ form_label(form.photo6, 'Photo6', {'label_attr': {'class': 'required'}}) }}
+                    {{ form_widget(form.photo6, {'attr': {'class': 'form-control'}}) }}
+                    {% if produit.photo6 %}
+                        <p>Photo actuelle : <img class="LaphotoProduit" src="{{ asset('uploads/'~produit.photo6) }}" alt="{{ produit.photo6}}"></p>
+                    {% endif %}
+                </div>
+
+            </section>
+
             <div class="champsInscription">
                 {{ form_label(form.prix, 'Prix', {'label_attr': {'class': 'required'}}) }}
                 {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}

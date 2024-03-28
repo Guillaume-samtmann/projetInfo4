@@ -719,3 +719,24 @@ footer {
 .listLienAdmin a:hover{
     color: #fe3873;
 }
+
+/*formulaire edition produit*/
+.formProduitImg {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.champsPhotoProduit label {
+    margin-bottom: 10px;
+}
+.champsPhotoProduit p {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.LaphotoProduit {
+    margin-top: 10px;
+    width: 13rem;
+}

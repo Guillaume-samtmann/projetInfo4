@@ -7,13 +7,13 @@
     <section class="oneProduit">
         <div class="oneProduit-header">
             <div class="oneProduit-headerLesImg">
-                <img src="{{ produit.photo }}" alt="img-produit">
+                <img src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}">
                 <div class="oneProduit-headerAutreImg">
-                    <img src="{{ produit.photo2 }}" alt="img-produit">
-                    <img src="{{ produit.photo3 }}" alt="img-produit">
-                    <img src="{{ produit.photo4 }}" alt="img-produit">
-                    <img src="{{ produit.photo5 }}" alt="img-produit">
-                    <img src="{{ produit.photo6 }}" alt="img-produit">
+                    <img src="{{ asset('uploads/'~produit.photo2) }}" alt="{{ produit.nom }}">
+                    <img src="{{ asset('uploads/'~produit.photo3) }}" alt="{{ produit.nom }}">
+                    <img src="{{ asset('uploads/'~produit.photo4) }}" alt="{{ produit.nom }}">
+                    <img src="{{ asset('uploads/'~produit.photo5) }}" alt="{{ produit.nom }}">
+                    <img src="{{ asset('uploads/'~produit.photo6) }}" alt="{{ produit.nom }}">
                 </div>
             </div>
             <div class="oneProduit-description">
