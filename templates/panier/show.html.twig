@@ -3,33 +3,20 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
-    <main>
-        <section class="lePanierGeneral">
+    <h1>Panier</h1>
 
-            <section class="panier">
-                <h2>Panier</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ panier.id }}</td>
+            </tr>
+        </tbody>
+    </table>
 
-                {% for panier in paniers %}
-                    {% for produit in paniers %}
-                        <section class="unProduitPanier">
-                            <div class="panierEnTete">
-                                <img src="{{ produit.photo }}" alt="img-produit">
-                                <div class="panierEnTete-contenu">
-                                    <h3>{{ produit.nom }}</h3>
-                                    <p>Échange & prolongation gratuits et illimités</p>
-                                </div>
-                            </div>
-                            <hr class="panierSeparation">
-                            <p class="panierPrix">{{ produit.prix }}</p>
-                        </section>
-                    {% endfor %}
-                {% endfor %}
-            </section>
+    <a href="{{ path('app_panier_index') }}">back to list</a>
 
+    <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">edit</a>
 
-        </section>
-        <a href="{{ path('app_panier_index') }}">back to list</a>
-    </main>
-
-
+    {{ include('panier/_delete_form.html.twig') }}
 {% endblock %}

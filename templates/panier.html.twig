@@ -9,8 +9,10 @@
         <section class="panier">
             <h2>Panier</h2>
 
-            {% for panier in paniers %}
-                {% for produit in panier.produit %}
+            {% if paniers is empty %}
+                <p>Votre panier est vide.</p>
+            {% else %}
+                {% for panier in paniers %}
                     <section class="unProduitPanier">
                         <div class="suppPanier">
                             <a class="linkSuppPanier" href="{{ path('panierDelete', {'id': panier.id}) }}">
@@ -21,9 +23,9 @@
                             </a>
                         </div>
                         <div class="panierEnTete">
-                            <img src="{{ produit.photo }}" alt="img-produit">
+                            <img src="{{ asset('uploads/'~panier.produit.photo) }}" alt="img-produit">
                             <div class="panierEnTete-contenu">
-                                <h3>{{ produit.nom }}</h3>
+                                <h3>{{ panier.produit.nom }}</h3>
                                 <p>Échange & prolongation gratuits et illimités</p>
                             </div>
                         </div>
@@ -41,11 +43,11 @@
                                     <option value="7">7</option>
                                 </select>
                             </div>
-                            <p class="panierPrix">{{ produit.prix }}</p>
+                            <p class="panierPrix">{{ panier.produit.prix }}</p>
                         </div>
                     </section>
                 {% endfor %}
-            {% endfor %}
+           {%  endif %}
         </section>
 
 

@@ -34,21 +34,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
 
-    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'utilisateur')]
-    private Collection $paniers;
-
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
     #[ORM\OneToMany(targetEntity: Commentaire::class, mappedBy: 'commentaireUser')]
     private Collection $commentaires;
 
+    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'user')]
+    private Collection $paniers;
+
 
 
     public function __construct()
     {
-        $this->paniers = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->paniers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -129,32 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Panier>
      */
-    public function getPaniers(): Collection
-    {
-        return $this->paniers;
-    }
 
-    public function addPaniers(Panier $panier): static
-    {
-        if (!$this->paniers->contains($panier)) {
-            $this->paniers->add($panier);
-            $panier->setUtilisateur($this);
-        }
-
-        return $this;
-    }
-
-    public function removePanier(Panier $panier): static
-    {
-        if ($this->paniers->removeElement($panier)) {
-            // set the owning side to null (unless already changed)
-            if ($panier->getUtilisateur() === $this) {
-                $panier->setUtilisateur(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getNom(): ?string
     {
@@ -192,6 +167,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($commentaire->getCommentaireUser() === $this) {
                 $commentaire->setCommentaireUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPaniers(): Collection
+    {
+        return $this->paniers;
+    }
+
+    public function addPanier(Panier $panier): static
+    {
+        if (!$this->paniers->contains($panier)) {
+            $this->paniers->add($panier);
+            $panier->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): static
+    {
+        if ($this->paniers->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getUser() === $this) {
+                $panier->setUser(null);
             }
         }
 

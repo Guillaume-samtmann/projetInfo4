@@ -61,8 +61,7 @@ class Produits
     #[ORM\ManyToMany(targetEntity: DecouvrirAProximiter::class, inversedBy: 'produits')]
     private Collection $decouvrirAProximiter;
 
-    #[ORM\ManyToOne(inversedBy: 'produit')]
-    private ?Panier $panier = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?InformationsHorraireArv $informationsHorraireArv = null;
@@ -76,6 +75,9 @@ class Produits
     #[ORM\ManyToOne(inversedBy: 'produits')]
     private ?Region $region = null;
 
+    #[ORM\OneToMany(targetEntity: Panier::class, mappedBy: 'produit')]
+    private Collection $paniers;
+
 
 
 
@@ -88,6 +90,7 @@ class Produits
         $this->motsCles = new ArrayCollection();
         $this->decouvrirSurPlace = new ArrayCollection();
         $this->decouvrirAProximiter = new ArrayCollection();
+        $this->paniers = new ArrayCollection();
 
 
     }
@@ -331,17 +334,7 @@ class Produits
         return $this;
     }
 
-    public function getPanier(): ?Panier
-    {
-        return $this->panier;
-    }
 
-    public function setPanier(?Panier $panier): static
-    {
-        $this->panier = $panier;
-
-        return $this;
-    }
 
     public function getInformationsHorraireArv(): ?InformationsHorraireArv
     {
@@ -391,9 +384,37 @@ class Produits
         return $this;
     }
 
+    /**
+     * @return Collection<int, Panier>
+     */
+    public function getPaniers(): Collection
+    {
+        return $this->paniers;
+    }
+
+    public function addPanier(Panier $panier): static
+    {
+        if (!$this->paniers->contains($panier)) {
+            $this->paniers->add($panier);
+            $panier->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removePanier(Panier $panier): static
+    {
+        if ($this->paniers->removeElement($panier)) {
+            // set the owning side to null (unless already changed)
+            if ($panier->getProduit() === $this) {
+                $panier->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 
-
-
+    
 }

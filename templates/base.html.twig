@@ -18,7 +18,10 @@
         <nav>
             {% if is_granted('ROLE_ADMIN') %}
                 <a class="logo" href="{{ path('home') }}"><img src="{{ asset('img/logo-wbx.svg') }}" alt="Description de l'image"></a>
-                <input class="searchBar" type="search" id="site-search" name="q" placeholder="Rechercher une activité, un lieu..."/>
+                <!--<input class="searchBar" type="search" id="site-search" name="q" placeholder="Rechercher une activité, un lieu..."/>-->
+                {% include "SearchBarre/_search_data.html.twig" with{
+                    form:form
+                } only %}
                 <div class="iconNav">
                     <div class="lienProfil">
                         <li><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">

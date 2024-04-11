@@ -528,9 +528,10 @@ svg#closeWindowCatRegion {
     background-color: #f4f4f4;
 }
 section.unProduitPanier {
-    height: 230px;
+    height: 310px;
 }
 .panierEnTete{
+    width: 100%;
     margin-top: 20px;
     display: flex;
     justify-content: space-around;

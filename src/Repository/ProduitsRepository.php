@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Produits;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\MotCles;
@@ -64,6 +65,21 @@ class ProduitsRepository extends ServiceEntityRepository
             ->setParameter('region_nom', $region)
             ->getQuery()
             ->getResult();
+    }
+
+    public function findBySearch(SearchData $searchData)
+    {
+        $queryBuilder = $this->createQueryBuilder('r');
+
+        if (!empty($searchData->q)) {
+            $queryBuilder
+                ->andWhere('r.nom LIKE :keyword OR re.nom LIKE :keyword OR n.nom')
+                ->setParameter('keyword', '%' . $searchData->q . '%');
+        }
+
+        $data = $queryBuilder->getQuery()->getResult();
+
+        return $data;
     }
 
 }

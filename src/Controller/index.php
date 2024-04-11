@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Commentaire;
 use App\Entity\DecouvrirSurPlace;
 use App\Entity\Panier;
+use App\Form\SearchType;
+use App\Model\SearchData;
 use App\Repository\CommentaireRepository;
 use App\Repository\DecouvrirAProximiterRepository;
 use App\Repository\InformationsHorraireArvRepository;
 use App\Repository\InformationsHorraireDeaprtRepository;
 use App\Repository\VilleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Produits;
@@ -173,22 +176,62 @@ class index extends AbstractController
 
 
     #[Route('/', name: 'home')]
-    public function index(MotClesRepository $repository): Response
+    public function index(MotClesRepository $repository, Request $request, ProduitsRepository $produitsRepository): Response
     {
         $motcles = $repository->findAll();
 
+        $searchData = new SearchData();
+
+        $searchData->q = $request->query->get('q', '');
+
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $produits = $produitsRepository->findBySearch($searchData);
+
+            return $this->render('produits_showAll', [
+                'form' => $form->createView(),
+                'produits' => $produits,
+                'mot_cles' => $motcles,
+            ]);
+        }
         return $this->render('home.html.twig', [
+            'form' => $form->createView(),
             'titre' => 'Bienvenue sur ma page d\'accueil ',
             'mot_cles' => $motcles,
-
         ]);
     }
+
     #[Route('/', name: 'base')]
-    public function base(MotClesRepository $repository): Response
+    public function base(MotClesRepository $repository, Request $request, ProduitsRepository $produitsRepository): Response
     {
         $motcles = $repository->findAll();
 
+        $searchData = new SearchData();
+
+        $searchData->q = $request->query->get('q', '');
+
+        $form = $this->createForm(SearchType::class, $searchData);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $produits = $produitsRepository->findBySearch($searchData);
+
+            return $this->render('produits_showAll', [
+                'form' => $form->createView(),
+                'produits' => $produits,
+                'mot_cles' => $motcles,
+            ]);
+        }
+
         return $this->render('base.html.twig', [
+            'form' => $form->createView(),
+            'titre' => 'Bienvenue sur ma page d\'accueil ',
             'mot_cles' => $motcles,
         ]);
     }
@@ -268,7 +311,7 @@ class index extends AbstractController
     public function afficherPanier(PanierRepository $panierRepository, MotClesRepository $motClesRepository): Response
     {
         $utilisateur = $this->getUser();
-        $paniers = $panierRepository->findByWithProduits(['user' => $utilisateur]);
+        $paniers = $panierRepository->findBy(['user' => $utilisateur]);
         $motcles = $motClesRepository->findAll();
 
         // Passer les paniers chargés à la vue Twig pour les afficher
