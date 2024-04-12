@@ -264,7 +264,7 @@ class index extends AbstractController
         ]);
     }
     #[Route('/produit_filtreRegion/{region}/{motCle?}', name: 'produit_filtreRegion')]
-    public function filtreregion($region, $motCle = null, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository, RegionRepository $regionRepository): Response {
+    public function filtreregion($region, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository, RegionRepository $regionRepository, $motCle = null): Response {
         // Récupérer les produits associés au mot-clé donné
         $produitsFiltre = $produitRepository->findByRegion($region);
         $nomMotCles = $motClesRepository->findOneBy(['nom' => $motCle]);
@@ -321,5 +321,18 @@ class index extends AbstractController
             'mot_cles' => $motcles,
 
         ]);
+    }
+
+    #[Route('/confirmation/{id}', name: 'confirmation')]
+    public function confirmation(int $id, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
+    {
+        $motcles = $motClesRepository->findAll();
+        $elementDuPanier = $entityManager->getRepository(Panier::class)->find($id);
+        $entityManager->remove($elementDuPanier);
+        $entityManager->flush();
+        return $this->render('confirmation.html.twig', [
+            'mot_cles' => $motcles,
+        ]);
+
     }
 }

@@ -124,19 +124,20 @@ input#site-search {
     padding-left: 10px;
 }
 .lienProfil:hover .sub-menuProfil{
-    display: block;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .sub-menuProfil {
     display: none;
     right: 56px;
     background: #f4f6f8;
-    height: 39px;
+    height: 97px;
     width: 194px;
     position: absolute;
-    z-index: 100;
-    bottom: 22px;
-    text-align: center;
+    z-index: 107;
+    bottom: -28px;
 }
 .sub-menuProfil a{
     color: black;
@@ -346,6 +347,7 @@ button.carousel-control-next {
     padding-left: 40px;
 }
 .oneProduit-descriptionBtnPanier{
+    margin-bottom: 30px;
     margin-top: 30px;
     display: flex;
     color: white;
@@ -356,6 +358,10 @@ button.carousel-control-next {
     height: 47px;
     justify-content: center;
     align-items: center;
+}
+.oneProduit-descriptionBtnPanier a{
+    text-decoration: none;
+    color: white;
 }
 .btnPanierLien {
     text-decoration: none;
@@ -834,3 +840,9 @@ footer {
     align-content: center;
     justify-content: space-between;
 }
+
+.panier h2{
+    width: 100%;
+    text-align: center;
+}
+
