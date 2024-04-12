@@ -25,26 +25,29 @@
                         <li class="listLienFiltreCat"><a href="{{ path('produit_filtreRegion', {'region': region.nom }) }}">{{ region.nom }}</a></li>
                     {% endfor %}
                 </ul>
-
             </div>
         </section>
+        {% if mot_cles is not empty %}
+            <p class="resultatRechercheFiltre">Voici le résultat de votre recherche pour le filtre <strong>{{ nom_mot_cle }} {{ nom_region }} ({{ produits|length }})</strong></p>
+        {% endif %}
 
-    <section class="lesProduits">
-        {% for produit in produits %}
-            <div class="card">
-                <a href="{{ path('produits_showOne', {'id': produit.id}) }}">
 
-                    <div>
-                        <img class="img_cardProduit" src="{{ produit.photo }}" alt="img destination">
-                    </div>
-                    <div>
-                        <h2 class="titreProduit">{{ produit.nom }}</h2>
-                        <p class="prixProduit">{{ produit.prix }}€</p>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
-    </section>
+        <section class="lesProduits">
+            {% for produit in produits %}
+                <div class="card">
+                    <a href="{{ path('produits_showOne', {'id': produit.id}) }}">
+
+                        <div>
+                            <img class="img_cardProduit" src="{{ asset('uploads/'~produit.photo)  }}" alt="img destination">
+                        </div>
+                        <div>
+                            <h2 class="titreProduit">{{ produit.nom }}</h2>
+                            <p class="prixProduit">{{ produit.prix }}€</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </section>
     </main>
 {% endblock %}
 {% block javascripts %}

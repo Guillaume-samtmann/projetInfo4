@@ -7,13 +7,19 @@
     <section class="oneProduit">
         <div class="oneProduit-header">
             <div class="oneProduit-headerLesImg">
-                <img src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}">
+                <img id="image1Produit" style="display: block" src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}">
+                <img id="image2Produit" src="{{ asset('uploads/'~produit.photo2) }}" alt="{{ produit.nom }}">
+                <img id="image3Produit" style="display: none"  src="{{ asset('uploads/'~produit.photo3) }}" alt="{{ produit.nom }}">
+                <img id="image4Produit" style="display: none"  src="{{ asset('uploads/'~produit.photo4) }}" alt="{{ produit.nom }}">
+                <img id="image5Produit" style="display: none"  src="{{ asset('uploads/'~produit.photo5) }}" alt="{{ produit.nom }}">
+                <img id="image6Produit" style="display: none"  src="{{ asset('uploads/'~produit.photo6) }}" alt="{{ produit.nom }}">
                 <div class="oneProduit-headerAutreImg">
-                    <img src="{{ asset('uploads/'~produit.photo2) }}" alt="{{ produit.nom }}">
-                    <img src="{{ asset('uploads/'~produit.photo3) }}" alt="{{ produit.nom }}">
-                    <img src="{{ asset('uploads/'~produit.photo4) }}" alt="{{ produit.nom }}">
-                    <img src="{{ asset('uploads/'~produit.photo5) }}" alt="{{ produit.nom }}">
-                    <img src="{{ asset('uploads/'~produit.photo6) }}" alt="{{ produit.nom }}">
+                    <img id="image1Produitpetite" style="display: none" src="{{ asset('uploads/'~produit.photo) }}" alt="{{ produit.nom }}">
+                    <img id="image2Produitpetite" style="display: block" src="{{ asset('uploads/'~produit.photo2) }}" alt="{{ produit.nom }}">
+                    <img id="image3Produitpetite" style="display: block" src="{{ asset('uploads/'~produit.photo3) }}" alt="{{ produit.nom }}">
+                    <img id="image4Produitpetite" style="display: block" src="{{ asset('uploads/'~produit.photo4) }}" alt="{{ produit.nom }}">
+                    <img id="image5Produitpetite" style="display: block" src="{{ asset('uploads/'~produit.photo5) }}" alt="{{ produit.nom }}">
+                    <img id="image6Produitpetite" style="display: block" src="{{ asset('uploads/'~produit.photo6) }}" alt="{{ produit.nom }}">
                 </div>
             </div>
             <div class="oneProduit-description">
@@ -111,24 +117,26 @@
                 <a class="createComm" href="{{ path('app_commentaire_new', {'produitId': produit.id, 'userId': app.user.id}) }}">Ajouter un commentaire</a>
             {% endif %}
             {% if commentaires is not empty %}
-                    {% for commentaire in commentaires %}
-                        <div class="commentaire">
-                            <div class="userCommentaire">
-                                {% if commentaire.commentaireUser %}
-                                    <p>Par {{ commentaire.commentaireUser.nom }}</p>
-                                {% else %}
-                                    <p>Utilisateur introuvable</p>
-                                {% endif %}
-                            </div>
-                            <div class="contenuCommentaire">
-                                <p class="commentaireTitre">{{ commentaire.titre }}</p>
-                                <p class="commentaireParagraphe">{{ commentaire.content }}</p>
-                            </div>
-
+                {% for commentaire in commentaires %}
+                    <div class="commentaire">
+                        <div class="userCommentaire">
+                            {% if commentaire.commentaireUser %}
+                                <p>Par {{ commentaire.commentaireUser.nom }}</p>
+                            {% else %}
+                                <p>Utilisateur introuvable</p>
+                            {% endif %}
+                            {% if app.user and commentaire.commentaireUser == app.user %}
+                                <a href="{{ path('app_commentaire_edit', {'id': commentaire.id}) }}">Modifier</a>
+                                <a href="{{ path('app_commentaire_delete', {'id': commentaire.id}) }}">Supprimer</a>
+                            {% endif %}
                         </div>
-                        <hr class="fincommentaire">
-
-                    {% endfor %}
+                        <div class="contenuCommentaire">
+                            <p class="commentaireTitre">{{ commentaire.titre }}</p>
+                            <p class="commentaireParagraphe">{{ commentaire.content }}</p>
+                        </div>
+                    </div>
+                    <hr class="fincommentaire">
+                {% endfor %}
             {% else %}
                 <p>Aucun commentaire disponible pour ce produit.</p>
             {% endif %}
@@ -139,17 +147,213 @@
 {% block javascripts %}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            let categoriesFiltre = document.querySelector(".categoriesFiltre");
-            let linkCategorie = document.querySelector(".linkCategorie");
-            let closeWindowCat = document.querySelector("#closeWindowCat");
-
-            categoriesFiltre.addEventListener("click", function () {
-                linkCategorie.style.display = "flex";
+            let image1Produit = document.querySelector("#image1Produit");
+            let image2Produit = document.querySelector("#image2Produit");
+            let image3Produit = document.querySelector("#image3Produit");
+            let image4Produit = document.querySelector("#image4Produit");
+            let image5Produit = document.querySelector("#image5Produit");
+            let image6Produit = document.querySelector("#image6Produit");
+            let image1Produitpetite = document.querySelector("#image1Produitpetite");
+            let image2Produitpetite = document.querySelector("#image2Produitpetite");
+            let image3Produitpetite = document.querySelector("#image3Produitpetite");
+            let image4Produitpetite = document.querySelector("#image4Produitpetite");
+            let image5Produitpetite = document.querySelector("#image5Produitpetite");
+            let image6Produitpetite = document.querySelector("#image6Produitpetite");
+            image1Produitpetite.addEventListener("click", function (){
+                if (image2Produit.style.display === "block"){
+                    image2Produit.style.display = "none"
+                    image1Produit.style.display = "block"
+                    image1Produitpetite.style.display = "none"
+                    image2Produitpetite.style.display = "block"
+                }
+                if (image3Produit.style.display === "block"){
+                    image3Produit.style.display = "none"
+                    image1Produit.style.display = "block"
+                    image1Produitpetite.style.display = "none"
+                    image3Produitpetite.style.display = "block"
+                }
+                if (image4Produit.style.display === "block"){
+                    image4Produit.style.display = "none"
+                    image1Produit.style.display = "block"
+                    image1Produitpetite.style.display = "none"
+                    image4Produitpetite.style.display = "block"
+                }
+                if (image5Produit.style.display === "block"){
+                    image5Produit.style.display = "none"
+                    image1Produit.style.display = "block"
+                    image1Produitpetite.style.display = "none"
+                    image5Produitpetite.style.display = "block"
+                }
+                if (image6Produit.style.display === "block"){
+                    image6Produit.style.display = "none"
+                    image1Produit.style.display = "block"
+                    image1Produitpetite.style.display = "none"
+                    image6Produitpetite.style.display = "block"
+                }
+            })
+            image2Produitpetite.addEventListener("click", function (){
+                if (image1Produit.style.display === "block"){
+                    image2Produit.style.display = "block";
+                    image2Produitpetite.style.display = "none";
+                    image1Produitpetite.style.display = "block";
+                    image1Produit.style.display = "none";
+                }
+                if (image3Produit.style.display === "block"){
+                    image2Produit.style.display = "block";
+                    image2Produitpetite.style.display = "none";
+                    image3Produitpetite.style.display = "block";
+                    image3Produit.style.display = "none";
+                }
+                if (image4Produit.style.display === "block"){
+                    image2Produit.style.display = "block";
+                    image2Produitpetite.style.display = "none";
+                    image4Produitpetite.style.display = "block";
+                    image4Produit.style.display = "none";
+                }
+                if (image5Produit.style.display === "block"){
+                    image2Produit.style.display = "block";
+                    image2Produitpetite.style.display = "none";
+                    image5Produitpetite.style.display = "block";
+                    image5Produit.style.display = "none";
+                }
+                if (image6Produit.style.display === "block"){
+                    image2Produit.style.display = "block";
+                    image2Produitpetite.style.display = "none";
+                    image6Produitpetite.style.display = "block";
+                    image6Produit.style.display = "none";
+                }
             });
-
-            closeWindowCat.addEventListener("click", function () {
-                linkCategorie.style.display = "none";
-            });
+            image3Produitpetite.addEventListener("click", function (){
+                if (image1Produit.style.display === "block"){
+                    image1Produit.style.display = "none"
+                    image3Produit.style.display = "block"
+                    image3Produitpetite.style.display = "none"
+                    image1Produitpetite.style.display = "block"
+                }
+                if (image2Produit.style.display === "block"){
+                    image2Produit.style.display = "none"
+                    image3Produit.style.display = "block"
+                    image3Produitpetite.style.display = "none"
+                    image2Produitpetite.style.display = "block"
+                }
+                if (image4Produit.style.display === "block"){
+                    image4Produit.style.display = "none"
+                    image3Produit.style.display = "block"
+                    image3Produitpetite.style.display = "none"
+                    image4Produitpetite.style.display = "block"
+                }
+                if (image5Produit.style.display === "block"){
+                    image5Produit.style.display = "none"
+                    image3Produit.style.display = "block"
+                    image3Produitpetite.style.display = "none"
+                    image5Produitpetite.style.display = "block"
+                }
+                if (image6Produit.style.display === "block"){
+                    image6Produit.style.display = "none"
+                    image3Produit.style.display = "block"
+                    image3Produitpetite.style.display = "none"
+                    image6Produitpetite.style.display = "block"
+                }
+            })
+            image4Produitpetite.addEventListener("click", function (){
+                if (image1Produit.style.display === "block"){
+                    image1Produit.style.display = "none"
+                    image4Produit.style.display = "block"
+                    image4Produitpetite.style.display = "none"
+                    image1Produitpetite.style.display = "block"
+                }
+                if (image2Produit.style.display === "block"){
+                    image2Produit.style.display = "none"
+                    image4Produit.style.display = "block"
+                    image4Produitpetite.style.display = "none"
+                    image2Produitpetite.style.display = "block"
+                }
+                if (image3Produit.style.display === "block"){
+                    image3Produit.style.display = "none"
+                    image4Produit.style.display = "block"
+                    image4Produitpetite.style.display = "none"
+                    image3Produitpetite.style.display = "block"
+                }
+                if (image5Produit.style.display === "block"){
+                    image5Produit.style.display = "none"
+                    image4Produit.style.display = "block"
+                    image4Produitpetite.style.display = "none"
+                    image5Produitpetite.style.display = "block"
+                }
+                if (image6Produit.style.display === "block"){
+                    image6Produit.style.display = "none"
+                    image4Produit.style.display = "block"
+                    image4Produitpetite.style.display = "none"
+                    image6Produitpetite.style.display = "block"
+                }
+            })
+            image5Produitpetite.addEventListener("click", function (){
+                if (image1Produit.style.display === "block"){
+                    image1Produit.style.display = "none"
+                    image5Produit.style.display = "block"
+                    image5Produitpetite.style.display = "none"
+                    image1Produitpetite.style.display = "block"
+                }
+                if (image2Produit.style.display === "block"){
+                    image2Produit.style.display = "none"
+                    image5Produit.style.display = "block"
+                    image5Produitpetite.style.display = "none"
+                    image2Produitpetite.style.display = "block"
+                }
+                if (image3Produit.style.display === "block"){
+                    image3Produit.style.display = "none"
+                    image5Produit.style.display = "block"
+                    image5Produitpetite.style.display = "none"
+                    image3Produitpetite.style.display = "block"
+                }
+                if (image4Produit.style.display === "block"){
+                    image4Produit.style.display = "none"
+                    image5Produit.style.display = "block"
+                    image5Produitpetite.style.display = "none"
+                    image4Produitpetite.style.display = "block"
+                }
+                if (image6Produit.style.display === "block"){
+                    image6Produit.style.display = "none"
+                    image5Produit.style.display = "block"
+                    image5Produitpetite.style.display = "none"
+                    image6Produitpetite.style.display = "block"
+                }
+            })
+            image6Produitpetite.addEventListener("click", function (){
+                if (image1Produit.style.display === "block"){
+                    image1Produit.style.display = "none"
+                    image6Produit.style.display = "block"
+                    image6Produitpetite.style.display = "none"
+                    image1Produitpetite.style.display = "block"
+                }
+                if (image2Produit.style.display === "block"){
+                    image2Produit.style.display = "none"
+                    image6Produit.style.display = "block"
+                    image6Produitpetite.style.display = "none"
+                    image2Produitpetite.style.display = "block"
+                }
+                if (image3Produit.style.display === "block"){
+                    image3Produit.style.display = "none"
+                    image6Produit.style.display = "block"
+                    image6Produitpetite.style.display = "none"
+                    image3Produitpetite.style.display = "block"
+                }
+                if (image4Produit.style.display === "block"){
+                    image4Produit.style.display = "none"
+                    image6Produit.style.display = "block"
+                    image6Produitpetite.style.display = "none"
+                    image4Produitpetite.style.display = "block"
+                }
+                if (image5Produit.style.display === "block"){
+                    image5Produit.style.display = "none"
+                    image6Produit.style.display = "block"
+                    image6Produitpetite.style.display = "none"
+                    image5Produitpetite.style.display = "block"
+                }
+            })
         });
+
+
+
     </script>
 {% endblock %}

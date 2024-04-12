@@ -27,6 +27,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\RegionRepository;
 use App\Repository\InformationsAnnimauxRepository;
 
+
 class index extends AbstractController
 {
 
@@ -176,61 +177,23 @@ class index extends AbstractController
 
 
     #[Route('/', name: 'home')]
-    public function index(MotClesRepository $repository, Request $request, ProduitsRepository $produitsRepository): Response
+    public function index(MotClesRepository $repository): Response
     {
         $motcles = $repository->findAll();
 
-        $searchData = new SearchData();
-
-        $searchData->q = $request->query->get('q', '');
-
-        $form = $this->createForm(SearchType::class, $searchData);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $produits = $produitsRepository->findBySearch($searchData);
-
-            return $this->render('produits_showAll', [
-                'form' => $form->createView(),
-                'produits' => $produits,
-                'mot_cles' => $motcles,
-            ]);
-        }
         return $this->render('home.html.twig', [
-            'form' => $form->createView(),
             'titre' => 'Bienvenue sur ma page d\'accueil ',
             'mot_cles' => $motcles,
         ]);
     }
 
     #[Route('/', name: 'base')]
-    public function base(MotClesRepository $repository, Request $request, ProduitsRepository $produitsRepository): Response
+    public function base(MotClesRepository $repository): Response
     {
         $motcles = $repository->findAll();
 
-        $searchData = new SearchData();
-
-        $searchData->q = $request->query->get('q', '');
-
-        $form = $this->createForm(SearchType::class, $searchData);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $produits = $produitsRepository->findBySearch($searchData);
-
-            return $this->render('produits_showAll', [
-                'form' => $form->createView(),
-                'produits' => $produits,
-                'mot_cles' => $motcles,
-            ]);
-        }
 
         return $this->render('base.html.twig', [
-            'form' => $form->createView(),
             'titre' => 'Bienvenue sur ma page d\'accueil ',
             'mot_cles' => $motcles,
         ]);
@@ -288,22 +251,33 @@ class index extends AbstractController
         $produitsFiltre = $produitRepository->findByMotCle($motCle);
         $motcles = $motClesRepository->findAll();
         $region = $regionRepository->findAll();
+        $nomMotCles = $motClesRepository->findOneBy(['nom' => $motCle]) ->getNom();
+        $nomRegion = $regionRepository->findOneBy(['nom' => $region]);
+
 
         return $this->render('showFilter.html.twig', [
             'produits' => $produitsFiltre,
             'mot_cles' => $motcles,
             'regions' => $region,
+            'nom_mot_cle' => $nomMotCles,
+            'nom_region' =>$nomRegion,
         ]);
     }
-    #[Route('/produit_filtreRegion/{region}', name: 'produit_filtreRegion')]
-    public function filtreregion($region, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository): Response {
+    #[Route('/produit_filtreRegion/{region}/{motCle?}', name: 'produit_filtreRegion')]
+    public function filtreregion($region, $motCle = null, ProduitsRepository $produitRepository, MotClesRepository $motClesRepository, RegionRepository $regionRepository): Response {
         // Récupérer les produits associés au mot-clé donné
         $produitsFiltre = $produitRepository->findByRegion($region);
+        $nomMotCles = $motClesRepository->findOneBy(['nom' => $motCle]);
         $motcles = $motClesRepository->findAll();
+        $regions = $regionRepository->findAll();
+        $nomRegion = $region;
 
         return $this->render('showFilter.html.twig', [
             'produits' => $produitsFiltre,
             'mot_cles' => $motcles,
+            'regions' => $regions,
+            'nom_mot_cle' => $nomMotCles,
+            'nom_region' =>$nomRegion,
         ]);
     }
 

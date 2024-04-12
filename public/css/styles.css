@@ -800,3 +800,37 @@ footer {
     border-radius: 25px;
     color: white;
 }
+.resultatRechercheFiltre {
+    width: 1280px;
+}
+
+
+
+#image2Produit{
+    display: none;
+}
+
+#image1Produitpetite{
+    cursor: pointer;
+}
+#image2Produitpetite{
+    cursor: pointer;
+}
+#image3Produitpetite{
+    cursor: pointer;
+}
+#image4Produitpetite{
+    cursor: pointer;
+}
+#image5Produitpetite{
+    cursor: pointer;
+}
+#image6Produitpetite{
+    cursor: pointer;
+}
+.oneProduit-headerAutreImg{
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+}

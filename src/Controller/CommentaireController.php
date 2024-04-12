@@ -84,20 +84,22 @@ class CommentaireController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_commentaire_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Commentaire $commentaire, EntityManagerInterface $entityManager, MotClesRepository $motClesRepository): Response
     {
+        $motcles = $motClesRepository->findAll();
         $form = $this->createForm(CommentaireType::class, $commentaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('produits', ['id'=>$commentaire->getProduit()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commentaire/edit.html.twig', [
             'commentaire' => $commentaire,
             'form' => $form,
+            'mot_cles' => $motcles,
         ]);
     }
 
@@ -109,7 +111,7 @@ class CommentaireController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('produits', ['id'=>$commentaire->getProduit()->getId()], Response::HTTP_SEE_OTHER);
     }
 
     public function showCommentaires(Produit $produit, UserRepository $userRepository)

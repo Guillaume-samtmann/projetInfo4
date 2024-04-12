@@ -67,19 +67,6 @@ class ProduitsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findBySearch(SearchData $searchData)
-    {
-        $queryBuilder = $this->createQueryBuilder('r');
 
-        if (!empty($searchData->q)) {
-            $queryBuilder
-                ->andWhere('r.nom LIKE :keyword OR re.nom LIKE :keyword OR n.nom')
-                ->setParameter('keyword', '%' . $searchData->q . '%');
-        }
-
-        $data = $queryBuilder->getQuery()->getResult();
-
-        return $data;
-    }
 
 }
