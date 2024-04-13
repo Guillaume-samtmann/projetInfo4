@@ -526,12 +526,17 @@ svg#closeWindowCatRegion {
 
 /*page panier*/
 .lePanierGeneral {
+    margin-bottom: 20px;
+    width: 100%;
     display: flex;
     justify-content: space-evenly;
 }
 .panier {
+    display: flex;
     width: 50%;
     background-color: #f4f4f4;
+    flex-direction: column;
+    align-items: center;
 }
 section.unProduitPanier {
     height: 310px;
@@ -683,6 +688,9 @@ select#nbt-select {
 }
 .champsInscription input{
     width: 100%;
+}
+.champsInscriptionMDP{
+    display: none;
 }
 
 
@@ -845,4 +853,6 @@ footer {
     width: 100%;
     text-align: center;
 }
+
+
 

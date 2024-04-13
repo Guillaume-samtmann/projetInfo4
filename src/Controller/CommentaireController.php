@@ -93,7 +93,7 @@ class CommentaireController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('produits', ['id'=>$commentaire->getProduit()->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('produits_showOne', ['id'=>$commentaire->getProduit()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commentaire/edit.html.twig', [
@@ -111,7 +111,7 @@ class CommentaireController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('produits', ['id'=>$commentaire->getProduit()->getId()], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('produits_showOne', ['id'=>$commentaire->getProduit()->getId()], Response::HTTP_SEE_OTHER);
     }
 
     public function showCommentaires(Produit $produit, UserRepository $userRepository)

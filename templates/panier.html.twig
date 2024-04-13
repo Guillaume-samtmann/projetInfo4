@@ -33,13 +33,13 @@
                                 <div>
                                     <p>Quantité</p>
                                     <select name="nbr" id="nbt-select">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
+                                        <option id="val1" value="1">1</option>
+                                        <option id="val2" value="2">2</option>
+                                        <option id="val3"  value="3">3</option>
+                                        <option id="val4"  value="4">4</option>
+                                        <option id="val5" value="5">5</option>
+                                        <option id="val6"  value="6">6</option>
+                                        <option id="val7"  value="7">7</option>
                                     </select>
                                 </div>
                                 <p class="panierPrix">{{ panier.produit.prix }}</p>
@@ -52,4 +52,19 @@
         </section>
 
     </main>
+{% endblock %}
+{% block javascripts %}
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let quantiteSelect = document.querySelector('#nbt-select');
+        let prixElement = document.querySelector('.panierPrix');
+        let prixInitial = parseFloat(prixElement.innerHTML); // Convertir le prix initial en nombre
+
+        quantiteSelect.addEventListener("change", function (){
+            let quantite = parseInt(quantiteSelect.value);
+            let nouveauPrix = prixInitial * quantite;
+            prixElement.innerHTML = nouveauPrix.toFixed(2); // Mettre à jour le prix avec deux décimales
+        });
+    });
+    </script>
 {% endblock %}

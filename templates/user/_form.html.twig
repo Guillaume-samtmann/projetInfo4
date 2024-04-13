@@ -19,9 +19,9 @@
                 {{ form_label(form.email, 'Email', {'label_attr': {'class': 'required'}}) }}
                 {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
             </div>
-            <div class="champsInscription">
+            <div class="champsInscriptionMDP">
                 {{ form_label(form.password, 'Password', {'label_attr': {'class': 'required'}}) }}
-                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control', 'id': 'password-field'}}) }}
             </div>
         </div>
         {{ form_row(form._token) }}
@@ -29,4 +29,5 @@
     </div>
     {{ form_end(form) }}
 </section>
+
 
